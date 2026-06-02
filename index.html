@@ -2,196 +2,624 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="refresh" content="300">
-<title>ICC Inadimplencia | 02/06/2026 10:24</title>
+<title>Inadimplencia ICC &mdash; 02/06/2026</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Segoe UI',system-ui,sans-serif;background:#0a0a0a;color:#e0e0e0;padding:24px;max-width:1200px;margin:0 auto}
-header{margin-bottom:28px}
-h1{font-size:1.7rem;color:#fff;margin-bottom:6px}
-.sub{color:#666;font-size:.85rem}
-.sub span{color:#ff5252;font-weight:600}
-.resumo{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:32px}
-.res-card{background:#141414;border:1px solid #262626;border-radius:12px;padding:18px 20px}
-.res-card .v{font-size:1.7rem;font-weight:700;color:#fff}
-.res-card .v.red{color:#ff5252}
-.res-card .l{color:#666;font-size:.78rem;margin-top:5px;text-transform:uppercase;letter-spacing:.5px}
-.card{background:#141414;border:1px solid #262626;border-radius:12px;padding:22px;margin-bottom:20px}
-.card-header{display:flex;align-items:center;gap:14px;padding-left:12px;margin-bottom:18px}
-.emp-emoji{font-size:2rem}
-h2{font-size:1.15rem;color:#fff;margin-bottom:4px}
-.badge{font-size:.75rem;padding:3px 10px;border-radius:20px}
-.metricas{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:20px}
-.metrica{background:#0d0d0d;border:1px solid #1e1e1e;border-radius:8px;padding:12px 16px}
-.metrica .val{font-size:1.25rem;font-weight:700;color:#fff}
-.metrica .val.red{color:#ff5252}
-.metrica .lab{color:#555;font-size:.73rem;margin-top:4px;text-transform:uppercase;letter-spacing:.5px}
-h3{font-size:.75rem;color:#555;text-transform:uppercase;letter-spacing:1px;margin:18px 0 10px}
-table{width:100%;border-collapse:collapse;font-size:.86rem}
-th{background:#0d0d0d;color:#666;padding:9px 12px;font-weight:500;font-size:.78rem;text-transform:uppercase;letter-spacing:.5px}
-td{padding:8px 12px;border-bottom:1px solid #1a1a1a;color:#ccc}
-tr:last-child td{border-bottom:none}
-tr:hover td{background:#181818}
-footer{text-align:center;color:#333;font-size:.78rem;margin-top:32px;padding-top:20px;border-top:1px solid #1a1a1a}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f0f2f5; color: #222; }
+.header { background: linear-gradient(135deg, #0d1b2a, #1e3a5f); color: white; padding: 18px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 12px rgba(0,0,0,0.3); }
+.header-left h1 { font-size: 20px; font-weight: 700; }
+.header-left p { font-size: 12px; opacity: 0.65; margin-top: 3px; }
+.header-right { text-align: right; font-size: 12px; opacity: 0.75; line-height: 1.6; }
+.tabs { background: white; border-bottom: 2px solid #e8e8e8; padding: 0 20px; display: flex; gap: 2px; overflow-x: auto; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+.tab-btn { padding: 14px 24px; border: none; background: none; cursor: pointer; font-size: 13.5px; font-weight: 500; color: #666; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: all 0.2s; white-space: nowrap; }
+.tab-btn:hover { color: #1e3a5f; }
+.tab-btn.active { color: #1e3a5f; border-bottom-color: #1e3a5f; font-weight: 700; }
+.tab-content { display: none; padding: 24px; max-width: 1440px; margin: 0 auto; }
+.tab-content.active { display: block; }
+.company-header { color: white; padding: 22px 28px; border-radius: 12px; margin-bottom: 22px; box-shadow: 0 4px 16px rgba(0,0,0,0.18); }
+.company-header h2 { font-size: 24px; margin-bottom: 4px; }
+.company-header p { opacity: 0.8; font-size: 13px; }
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; margin-bottom: 22px; }
+.card { background: white; border-radius: 10px; padding: 20px 18px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.07); border-top: 4px solid #2196F3; transition: transform 0.15s; }
+.card:hover { transform: translateY(-2px); }
+.card.red { border-top-color: #e53935; }
+.card.orange { border-top-color: #fb8c00; }
+.card-value { font-size: 26px; font-weight: 800; color: #1e3a5f; margin-bottom: 5px; line-height: 1.1; }
+.card.red .card-value { color: #c62828; }
+.card.orange .card-value { color: #e65100; }
+.card-label { font-size: 12px; color: #888; font-weight: 500; }
+.card-trends { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; margin-top: 10px; padding-top: 8px; border-top: 1px solid #f0f0f0; }
+.trend-item { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.trend-period { font-size: 9px; color: #bbb; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; }
+.trend-val { font-size: 11px; font-weight: 800; }
+.trend-val.bad  { color: #e53935; }
+.trend-val.good { color: #43a047; }
+.trend-val.flat { color: #9e9e9e; }
+.section { background: white; border-radius: 10px; padding: 20px 22px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.section h3 { font-size: 15px; font-weight: 700; margin-bottom: 16px; color: #1e3a5f; padding-bottom: 10px; border-bottom: 2px solid #f0f2f5; }
+.aging-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.aging-box { border-radius: 10px; padding: 16px 12px; text-align: center; border: 1px solid; }
+.aging-box.green  { background: #f1f8e9; border-color: #aed581; }
+.aging-box.yellow { background: #fffde7; border-color: #ffe082; }
+.aging-box.orange { background: #fff3e0; border-color: #ffcc80; }
+.aging-box.red    { background: #ffebee; border-color: #ef9a9a; }
+.aging-count { font-size: 36px; font-weight: 800; line-height: 1; }
+.aging-box.green  .aging-count { color: #33691e; }
+.aging-box.yellow .aging-count { color: #f57f17; }
+.aging-box.orange .aging-count { color: #bf360c; }
+.aging-box.red    .aging-count { color: #b71c1c; }
+.aging-label { font-size: 12px; font-weight: 700; margin: 6px 0 4px; color: #555; }
+.aging-value { font-size: 14px; font-weight: 800; margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(0,0,0,0.09); }
+.aging-box.green  .aging-value { color: #33691e; }
+.aging-box.yellow .aging-value { color: #f57f17; }
+.aging-box.orange .aging-value { color: #bf360c; }
+.aging-box.red    .aging-value { color: #b71c1c; }
+.insight-card { display: flex; gap: 14px; align-items: flex-start; padding: 14px 16px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid; }
+.insight-card.danger  { background: #fff5f5; border-color: #e53935; }
+.insight-card.warning { background: #fffdf0; border-color: #fdd835; }
+.insight-card.info    { background: #f0f7ff; border-color: #1e88e5; }
+.insight-icon  { font-size: 22px; flex-shrink: 0; line-height: 1; margin-top: 1px; }
+.insight-title { font-weight: 700; font-size: 13px; margin-bottom: 4px; }
+.insight-text  { font-size: 12.5px; color: #555; line-height: 1.55; }
+.action-group  { border: 1px solid #e8e8e8; border-radius: 8px; overflow: hidden; margin-bottom: 14px; }
+.action-header { padding: 11px 16px; font-size: 13px; font-weight: 700; border-bottom: 1px solid #e8e8e8; }
+.action-header.red    { background: #ffebee; color: #b71c1c; border-bottom-color: #ffcdd2; }
+.action-header.orange { background: #fff3e0; color: #bf360c; border-bottom-color: #ffe0b2; }
+.action-header.blue   { background: #e3f2fd; color: #0d47a1; border-bottom-color: #bbdefb; }
+.action-item { padding: 9px 16px; font-size: 12.5px; border-bottom: 1px solid #fafafa; }
+.action-item:last-child { border-bottom: none; }
+.action-item.red    { background: #fff8f8; }
+.action-item.orange { background: #fffaf5; }
+.action-item.blue   { background: #f8fbff; }
+.no-items { padding: 12px 16px; font-size: 12.5px; color: #aaa; font-style: italic; }
+.table-container { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+thead th { background: #f5f7fa; padding: 10px 12px; text-align: left; font-weight: 700; color: #444; border-bottom: 2px solid #e0e4ea; white-space: nowrap; }
+tbody td { padding: 9px 12px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
+tbody tr:hover td { background: #f9fafb; }
+.badge { display: inline-block; padding: 3px 9px; border-radius: 20px; font-size: 11px; font-weight: 700; white-space: nowrap; }
+.badge.red    { background: #ffebee; color: #c62828; }
+.badge.orange { background: #fff3e0; color: #e65100; }
+.badge.yellow { background: #fff8e1; color: #f57f17; }
+.badge.green  { background: #e8f5e9; color: #2e7d32; }
+.badge.blue   { background: #e3f2fd; color: #1565c0; }
+.badge.gray   { background: #f5f5f5; color: #616161; border: 1px solid #e0e0e0; }
+.company-breakdown { display: flex; flex-direction: column; gap: 10px; }
+.company-row { display: flex; align-items: center; gap: 14px; padding: 14px 16px; background: #fafbfc; border-radius: 8px; border: 1px solid #ebebeb; }
+.company-dot { width: 13px; height: 13px; border-radius: 50%; flex-shrink: 0; }
+.company-info { flex: 1; }
+.company-info strong { display: block; font-size: 14px; }
+.company-info span   { font-size: 12px; color: #999; }
+.pct-bar-wrap { flex: 2; }
+.pct-bar-bg { background: #eee; border-radius: 4px; height: 6px; }
+.pct-bar    { height: 6px; border-radius: 4px; }
+.company-value { text-align: right; }
+.company-value strong { display: block; font-size: 16px; color: #1e3a5f; font-weight: 800; }
+.company-value span   { font-size: 11px; color: #aaa; }
+.curr-card { background: white; border-radius: 10px; padding: 20px 22px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); border-top: 4px solid #7b1fa2; }
+.curr-card-title { font-size: 14px; font-weight: 800; color: #1e3a5f; margin-bottom: 14px; }
+.curr-rows { display: flex; flex-direction: column; gap: 0; }
+.curr-company-row { display: flex; align-items: center; justify-content: space-between; padding: 11px 0; border-bottom: 1px solid #f5f5f5; }
+.curr-company-row:last-child { border-bottom: none; }
+.curr-company-name { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #333; }
+.curr-dot   { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.curr-value { font-size: 16px; font-weight: 800; color: #1e3a5f; }
+.curr-count { font-size: 11px; color: #aaa; margin-left: 5px; }
+details.curr-hist { margin-top: 14px; border-top: 1px solid #f0f0f0; padding-top: 12px; }
+details.curr-hist summary { cursor: pointer; list-style: none; font-size: 12px; font-weight: 700; color: #1565c0; user-select: none; display: flex; align-items: center; gap: 6px; }
+details.curr-hist summary::-webkit-details-marker { display: none; }
+details.curr-hist summary::before { content: '\25B6'; font-size: 10px; transition: transform 0.2s; display: inline-block; }
+details[open].curr-hist summary::before { transform: rotate(90deg); }
+.curr-hist-wrap { overflow-x: auto; margin-top: 12px; }
+.curr-hist-tbl { width: 100%; border-collapse: collapse; font-size: 12px; }
+.curr-hist-tbl thead th { background: #f5f7fa; padding: 8px 12px; text-align: right; font-weight: 700; color: #555; border-bottom: 2px solid #e0e4ea; white-space: nowrap; }
+.curr-hist-tbl thead th:first-child { text-align: left; }
+.curr-hist-tbl tbody td { padding: 9px 12px; border-bottom: 1px solid #f5f5f5; text-align: right; vertical-align: middle; }
+.curr-hist-tbl tbody td:first-child { text-align: left; font-weight: 600; white-space: nowrap; }
+.curr-hist-tbl tbody tr:hover td { background: #fafbfc; }
+.curr-hist-tbl tfoot td { background: #f0f4f8; font-weight: 800; border-top: 2px solid #dde3ed; padding: 9px 12px; text-align: right; }
+.curr-hist-tbl tfoot td:first-child { text-align: left; }
+.meta-card { background: white; border-radius: 10px; padding: 20px 22px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); border-top: 4px solid #1e3a5f; }
+.meta-top  { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; gap: 12px; flex-wrap: wrap; }
+.meta-title { font-size: 14px; font-weight: 800; color: #1e3a5f; margin-bottom: 3px; }
+.meta-subtitle { font-size: 12px; color: #888; }
+.meta-status-badge { padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; white-space: nowrap; border: 1px solid; }
+.meta-gauge-area { margin-bottom: 18px; }
+.meta-gauge-labels { display: flex; justify-content: space-between; font-size: 11px; color: #aaa; margin-bottom: 8px; }
+.meta-gauge-track { position: relative; height: 32px; }
+.meta-gauge-bar  { position: absolute; top: 50%; transform: translateY(-50%); left: 0; right: 0; height: 14px; border-radius: 7px; background: linear-gradient(to right, #ef5350 0%, #ffa726 35%, #ffee58 60%, #66bb6a 100%); }
+.meta-gauge-dim  { position: absolute; top: 50%; transform: translateY(-50%); right: 0; height: 14px; background: rgba(0,0,0,0.30); border-radius: 0 7px 7px 0; }
+.meta-gauge-knob { position: absolute; top: 50%; transform: translate(-50%,-50%); width: 24px; height: 24px; border-radius: 50%; background: white; border: 3px solid #1e3a5f; box-shadow: 0 2px 8px rgba(0,0,0,0.25); z-index: 3; }
+.meta-gauge-knob::before { content: attr(data-label); position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); background: #1e3a5f; color: white; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; white-space: nowrap; }
+.meta-gauge-knob::after  { content: ''; position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); border: 5px solid transparent; border-top-color: #1e3a5f; }
+.meta-pct-row  { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+.meta-pct-bg   { flex: 1; height: 7px; background: #eee; border-radius: 4px; overflow: hidden; }
+.meta-pct-fill { height: 100%; border-radius: 4px; }
+.meta-pct-txt  { font-size: 12px; font-weight: 800; min-width: 44px; text-align: right; }
+.meta-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; border-top: 1px solid #f0f0f0; padding-top: 14px; }
+.meta-stat-val { font-size: 17px; font-weight: 800; line-height: 1.2; }
+.meta-stat-lbl { font-size: 11px; color: #999; margin-top: 3px; }
+.prio-summary { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-bottom: 20px; }
+.prio-card { background: white; border-radius: 10px; padding: 18px 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+.prio-card.caixa      { border-top: 4px solid #43a047; }
+.prio-card.negociacao { border-top: 4px solid #e53935; }
+.prio-card.regua      { border-top: 4px solid #9e9e9e; }
+.prio-card-title { font-size: 11px; font-weight: 700; color: #777; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 6px; }
+.prio-card-value { font-size: 22px; font-weight: 800; color: #1e3a5f; line-height: 1.1; }
+.prio-card-sub   { font-size: 11px; color: #aaa; margin-top: 4px; }
+.prio-table-wrap { overflow-x: auto; }
+.prio-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.prio-table thead th { background: #f5f7fa; padding: 10px 12px; text-align: left; font-weight: 700; color: #444; border-bottom: 2px solid #e0e4ea; cursor: pointer; user-select: none; white-space: nowrap; }
+.prio-table thead th:hover { background: #eef0f3; }
+.prio-table thead th.sort-asc::after  { content: ' \2191'; color: #1e3a5f; }
+.prio-table thead th.sort-desc::after { content: ' \2193'; color: #1e3a5f; }
+.prio-table tbody td { padding: 9px 12px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
+.prio-table tbody tr:hover td { background: #f9fafb; }
+.prio-table .group-sep td { background: #eef2f7; font-weight: 800; color: #1e3a5f; font-size: 12px; padding: 8px 12px; border-top: 2px solid #d0d8e8; border-bottom: 1px solid #dde3ed; }
+.prio-table .pareto-row td { background: #fffdf0 !important; }
+.prio-table .pareto-row td:first-child { border-left: 3px solid #fdd835; padding-left: 9px; }
+.pareto-star { color: #f9a825; margin-left: 3px; font-size: 12px; }
+.group-badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 10.5px; font-weight: 700; white-space: nowrap; }
+.group-badge.caixa      { background: #e8f5e9; color: #2e7d32; }
+.group-badge.transicao  { background: #fff3e0; color: #e65100; }
+.group-badge.negociacao { background: #ffebee; color: #c62828; }
+.group-badge.regua      { background: #f5f5f5; color: #757575; border: 1px solid #e0e0e0; }
+.rec-table-wrap { overflow-x: auto; }
+.rec-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.rec-table thead th { background: #1e3a5f; color: white; padding: 10px 14px; text-align: center; font-weight: 700; white-space: nowrap; }
+.rec-table thead th:first-child { text-align: left; border-radius: 8px 0 0 0; }
+.rec-table thead th:last-child  { border-radius: 0 8px 0 0; }
+.rec-table tbody td { padding: 11px 14px; border-bottom: 1px solid #f0f0f0; }
+.rec-cell { text-align: right; font-weight: 600; color: #2e7d32; font-variant-numeric: tabular-nums; }
+.rec-company { font-weight: 600; color: #333; }
+.rec-total-row td { background: #f0f7f0; font-weight: 800; border-top: 2px solid #a5d6a7; }
+.rec-total-row .rec-cell { color: #1b5e20; font-size: 14px; }
+.rec-zero { color: #bbb !important; font-weight: 400 !important; }
+@media (max-width: 768px) {
+  .aging-grid { grid-template-columns: repeat(2,1fr); }
+  .cards-grid { grid-template-columns: repeat(2,1fr); }
+  .prio-summary { grid-template-columns: 1fr; }
+  .tab-content { padding: 14px; }
+}
 </style>
 </head>
 <body>
-<header>
-  <h1>&#x1F534; ICC Grupo &mdash; Inadimplencia Consolidada</h1>
-  <p class="sub">Atualizado em <span>02/06/2026 10:24</span> &nbsp;&middot;&nbsp; Proxima atualizacao automatica em 5 minutos</p>
-</header>
-<div class="resumo">
-  <div class="res-card"><div class="v red">R$ 980,150.75</div><div class="l">Total em aberto</div></div>
-  <div class="res-card"><div class="v">135</div><div class="l">Clientes inadimplentes</div></div>
-  <div class="res-card"><div class="v">280</div><div class="l">Titulos em aberto</div></div>
-  <div class="res-card"><div class="v red">R$ 577,668.68</div><div class="l">Acima de 90 dias (58.9%)</div></div>
+<div class="header">
+  <div class="header-left">
+    <h1>&#x1F4CA; Relatorio de Inadimplencia &mdash; ICC Grupo</h1>
+    <p>Gerado automaticamente via integracao Omie API</p>
+  </div>
+  <div class="header-right">Ultima atualizacao<br><strong>02/06/2026, 10:24:48</strong></div>
 </div>
-<div class="card">
-  <div class="card-header" style="border-left:4px solid #4CAF50">
-    <span class="emp-emoji">&#x1F393;</span>
-    <div>
-      <h2>ICC Instituto</h2>
-      <span class="badge" style="background:#4CAF5022;color:#4CAF50;border:1px solid #4CAF5044">34.5% do grupo</span>
-    </div>
-  </div>
-  <div class="metricas">
-    <div class="metrica"><div class="val red">R$ 338,227.65</div><div class="lab">Em aberto</div></div>
-    <div class="metrica"><div class="val">41</div><div class="lab">Clientes</div></div>
-    <div class="metrica"><div class="val">76</div><div class="lab">Titulos</div></div>
-    <div class="metrica"><div class="val" style="color:#ff5252">53.3%</div><div class="lab">Acima 90 dias</div></div>
-  </div>
-  <h3>Aging dos titulos</h3>
-  <table>
-    <tr><th>Faixa</th><th style="text-align:right">Valor</th><th style="text-align:right">%</th></tr>
-    <tr><td style="color:#66bb6a">1 a 30 dias</td><td style="text-align:right">R$ 45,133.33</td><td style="text-align:right;color:#66bb6a">13.3%</td></tr>
-    <tr><td style="color:#ff9800">31 a 90 dias</td><td style="text-align:right">R$ 112,974.87</td><td style="text-align:right;color:#ff9800">33.4%</td></tr>
-    <tr><td style="color:#ff5252">90+ dias</td><td style="text-align:right">R$ 180,119.45</td><td style="text-align:right;color:#ff5252">53.3%</td></tr>
-  </table>
-  <h3>Top clientes por valor</h3>
-  <table>
-    <tr><th>Cliente</th><th style="text-align:right">Valor</th><th style="text-align:center">Titulos</th><th style="text-align:center">Maior atraso</th></tr>
-    <tr><td>INDUSTRIA BRASILEIRA DE MUNICOES S.A.</td><td style='text-align:right'>R$ 52,050.50</td><td style='text-align:center'>2</td><td style='text-align:center;color:#ff5252;font-weight:600'>253 d</td></tr>
-<tr><td>J.C ASSESSORIA LTDA</td><td style='text-align:right'>R$ 48,566.67</td><td style='text-align:center'>9</td><td style='text-align:center;color:#ff5252;font-weight:600'>169 d</td></tr>
-<tr><td>MAROALTA LOGISTICA INTERNACIONAL</td><td style='text-align:right'>R$ 23,299.99</td><td style='text-align:center'>2</td><td style='text-align:center;color:#ff9800;font-weight:600'>53 d</td></tr>
-<tr><td>LUMINATTI BY DANURI</td><td style='text-align:right'>R$ 21,000.00</td><td style='text-align:center'>1</td><td style='text-align:center;color:#ff5252;font-weight:600'>130 d</td></tr>
-<tr><td>REALSKY COMERCIO IMPORTACAO E EXPORTACAO</td><td style='text-align:right'>R$ 17,224.70</td><td style='text-align:center'>3</td><td style='text-align:center;color:#ff9800;font-weight:600'>75 d</td></tr>
-<tr><td>DATAN COMERCIAL DO BRASIL LTDA</td><td style='text-align:right'>R$ 16,192.72</td><td style='text-align:center'>3</td><td style='text-align:center;color:#ff9800;font-weight:600'>54 d</td></tr>
-<tr><td>BRV AMMUNITION LTDA</td><td style='text-align:right'>R$ 12,000.00</td><td style='text-align:center'>4</td><td style='text-align:center;color:#ff9800;font-weight:600'>81 d</td></tr>
-<tr><td>EFICILUX COMERCIO E SERVICO DE EQUIPAMENTOS ELETRICOS</td><td style='text-align:right'>R$ 12,000.00</td><td style='text-align:center'>6</td><td style='text-align:center;color:#ff5252;font-weight:600'>762 d</td></tr>
-<tr><td>BRAINZ HOLDING LTDA</td><td style='text-align:right'>R$ 10,000.00</td><td style='text-align:center'>1</td><td style='text-align:center;color:#ff9800;font-weight:600'>71 d</td></tr>
-<tr><td>ARSHED SUHEEL NAJEM LTDA</td><td style='text-align:right'>R$ 9,600.00</td><td style='text-align:center'>1</td><td style='text-align:center;color:#ff5252;font-weight:600'>838 d</td></tr>
-<tr><td>STAR-MED</td><td style='text-align:right'>R$ 9,000.00</td><td style='text-align:center'>1</td><td style='text-align:center;color:#66bb6a;font-weight:600'>4 d</td></tr>
-<tr><td>PARTNERUS</td><td style='text-align:right'>R$ 8,993.34</td><td style='text-align:center'>3</td><td style='text-align:center;color:#ff5252;font-weight:600'>120 d</td></tr>
-<tr><td>RICK COMERCIO E LOCACAO LTDA</td><td style='text-align:right'>R$ 7,299.30</td><td style='text-align:center'>1</td><td style='text-align:center;color:#ff9800;font-weight:600'>47 d</td></tr>
-<tr><td>CTC LOGISTICA</td><td style='text-align:right'>R$ 7,110.28</td><td style='text-align:center'>1</td><td style='text-align:center;color:#ff5252;font-weight:600'>103 d</td></tr>
-<tr><td>VELTON PREMIUM</td><td style='text-align:right'>R$ 6,654.80</td><td style='text-align:center'>3</td><td style='text-align:center;color:#ff5252;font-weight:600'>110 d</td></tr>
-<tr><td>F7 FASHION</td><td style='text-align:right'>R$ 6,596.36</td><td style='text-align:center'>1</td><td style='text-align:center;color:#ff9800;font-weight:600'>54 d</td></tr>
-<tr><td>SPRINGS</td><td style='text-align:right'>R$ 6,596.36</td><td style='text-align:center'>1</td><td style='text-align:center;color:#ff9800;font-weight:600'>54 d</td></tr>
-<tr><td>HYPER CLUB</td><td style='text-align:right'>R$ 6,500.00</td><td style='text-align:center'>1</td><td style='text-align:center;color:#ff5252;font-weight:600'>113 d</td></tr>
-<tr><td>INDBRAS ILUMINACAO</td><td style='text-align:right'>R$ 5,666.66</td><td style='text-align:center'>4</td><td style='text-align:center;color:#ff5252;font-weight:600'>155 d</td></tr>
-<tr><td>J.SHAN COMERCIO EXTERIOR LTDA</td><td style='text-align:right'>R$ 5,000.00</td><td style='text-align:center'>1</td><td style='text-align:center;color:#ff5252;font-weight:600'>94 d</td></tr>
-<tr><td>ROBERT BOSCH LIMITADA</td><td style='text-align:right'>R$ 5,000.00</td><td style='text-align:center'>1</td><td style='text-align:center;color:#ff5252;font-weight:600'>241 d</td></tr>
-<tr><td>L&amp;amp;G IMPORTACOES</td><td style='text-align:right'>R$ 4,650.00</td><td style='text-align:center'>1</td><td style='text-align:center;color:#ff5252;font-weight:600'>169 d</td></tr>
-<tr><td>TOP 3</td><td style='text-align:right'>R$ 4,504.20</td><td style='text-align:center'>2</td><td style='text-align:center;color:#ff5252;font-weight:600'>159 d</td></tr>
-<tr><td>AQUALLY BANHEIRAS</td><td style='text-align:right'>R$ 4,450.00</td><td style='text-align:center'>2</td><td style='text-align:center;color:#ff5252;font-weight:600'>568 d</td></tr>
-<tr><td>REDE NORDESTE SEGURANCA</td><td style='text-align:right'>R$ 4,283.54</td><td style='text-align:center'>2</td><td style='text-align:center;color:#ff5252;font-weight:600'>831 d</td></tr>
-
-  </table>
-</div><div class="card">
-  <div class="card-header" style="border-left:4px solid #2196F3">
-    <span class="emp-emoji">&#x1F4E1;</span>
-    <div>
-      <h2>ICC Telecom</h2>
-      <span class="badge" style="background:#2196F322;color:#2196F3;border:1px solid #2196F344">56.8% do grupo</span>
-    </div>
-  </div>
-  <div class="metricas">
-    <div class="metrica"><div class="val red">R$ 556,931.94</div><div class="lab">Em aberto</div></div>
-    <div class="metrica"><div class="val">78</div><div class="lab">Clientes</div></div>
-    <div class="metrica"><div class="val">179</div><div class="lab">Titulos</div></div>
-    <div class="metrica"><div class="val" style="color:#ff5252">64.6%</div><div class="lab">Acima 90 dias</div></div>
-  </div>
-  <h3>Aging dos titulos</h3>
-  <table>
-    <tr><th>Faixa</th><th style="text-align:right">Valor</th><th style="text-align:right">%</th></tr>
-    <tr><td style="color:#66bb6a">1 a 30 dias</td><td style="text-align:right">R$ 88,624.68</td><td style="text-align:right;color:#66bb6a">15.9%</td></tr>
-    <tr><td style="color:#ff9800">31 a 90 dias</td><td style="text-align:right">R$ 108,332.60</td><td style="text-align:right;color:#ff9800">19.5%</td></tr>
-    <tr><td style="color:#ff5252">90+ dias</td><td style="text-align:right">R$ 359,974.66</td><td style="text-align:right;color:#ff5252">64.6%</td></tr>
-  </table>
-  <h3>Top clientes por valor</h3>
-  <table>
-    <tr><th>Cliente</th><th style="text-align:right">Valor</th><th style="text-align:center">Titulos</th><th style="text-align:center">Maior atraso</th></tr>
-    <tr><td>J.C ASSESSORIA LTDA</td><td style='text-align:right'>R$ 40,000.00</td><td style='text-align:center'>22</td><td style='text-align:center;color:#ff5252;font-weight:600'>291 d</td></tr>
-<tr><td>MIYA GLORIA COMMERCIAL LTDA</td><td style='text-align:right'>R$ 37,483.94</td><td style='text-align:center'>3</td><td style='text-align:center;color:#ff9800;font-weight:600'>73 d</td></tr>
-<tr><td>PREMIUM SUPPLY</td><td style='text-align:right'>R$ 32,166.68</td><td style='text-align:center'>2</td><td style='text-align:center;color:#ff9800;font-weight:600'>67 d</td></tr>
-<tr><td>GLAMOUR TOOLS BRASIL LTDA.</td><td style='text-align:right'>R$ 23,269.17</td><td style='text-align:center'>8</td><td style='text-align:center;color:#ff5252;font-weight:600'>569 d</td></tr>
-<tr><td>DISTRIBUIDORA PV</td><td style='text-align:right'>R$ 21,027.84</td><td style='text-align:center'>9</td><td style='text-align:center;color:#ff5252;font-weight:600'>417 d</td></tr>
-<tr><td>EASY SERVICOS EM CERTIFICACOES LTDA</td><td style='text-align:right'>R$ 18,700.00</td><td style='text-align:center'>5</td><td style='text-align:center;color:#ff5252;font-weight:600'>346 d</td></tr>
-<tr><td>FREECOOK BRASIL</td><td style='text-align:right'>R$ 17,510.84</td><td style='text-align:center'>4</td><td style='text-align:center;color:#ff5252;font-weight:600'>371 d</td></tr>
-<tr><td>VIA SOLUTION LTDA</td><td style='text-align:right'>R$ 14,582.42</td><td style='text-align:center'>4</td><td style='text-align:center;color:#ff5252;font-weight:600'>339 d</td></tr>
-<tr><td>ADVICE COMERCIO EXTERIOR</td><td style='text-align:right'>R$ 13,366.67</td><td style='text-align:center'>5</td><td style='text-align:center;color:#ff5252;font-weight:600'>677 d</td></tr>
-<tr><td>NORTE BRASIL CERTIFICACOES</td><td style='text-align:right'>R$ 13,316.70</td><td style='text-align:center'>9</td><td style='text-align:center;color:#ff5252;font-weight:600'>398 d</td></tr>
-<tr><td>RODRIGUES COLCHOES</td><td style='text-align:right'>R$ 13,200.00</td><td style='text-align:center'>2</td><td style='text-align:center;color:#66bb6a;font-weight:600'>11 d</td></tr>
-<tr><td>CAFE COZINHA COMERCIO DE UTENSILIOS LTDA</td><td style='text-align:right'>R$ 11,642.80</td><td style='text-align:center'>3</td><td style='text-align:center;color:#ff5252;font-weight:600'>524 d</td></tr>
-<tr><td>DICA DESENVOLVIMENTO DE PESSOAS LTDA</td><td style='text-align:right'>R$ 11,500.00</td><td style='text-align:center'>4</td><td style='text-align:center;color:#ff9800;font-weight:600'>71 d</td></tr>
-<tr><td>STAR-MED</td><td style='text-align:right'>R$ 11,250.00</td><td style='text-align:center'>1</td><td style='text-align:center;color:#66bb6a;font-weight:600'>4 d</td></tr>
-<tr><td>STAR LIGHT COMERCIO DE PRESENTES E ARTIGOS ELETRO-ELETRONICO</td><td style='text-align:right'>R$ 9,358.10</td><td style='text-align:center'>2</td><td style='text-align:center;color:#ff5252;font-weight:600'>300 d</td></tr>
-<tr><td>MERAKI NEGOCIOS INTERNACIONAIS LTDA</td><td style='text-align:right'>R$ 9,288.00</td><td style='text-align:center'>1</td><td style='text-align:center;color:#ff5252;font-weight:600'>123 d</td></tr>
-<tr><td>ELETRICA NORDESTE</td><td style='text-align:right'>R$ 7,800.00</td><td style='text-align:center'>5</td><td style='text-align:center;color:#ff5252;font-weight:600'>656 d</td></tr>
-<tr><td>GPJ INFORMATICA</td><td style='text-align:right'>R$ 7,500.00</td><td style='text-align:center'>1</td><td style='text-align:center;color:#ff5252;font-weight:600'>210 d</td></tr>
-<tr><td>RICARDO RODRIGUES LOUZADA RINALDI LTDA</td><td style='text-align:right'>R$ 7,500.00</td><td style='text-align:center'>1</td><td style='text-align:center;color:#ff5252;font-weight:600'>222 d</td></tr>
-<tr><td>ORION SOLUCOES EM ILUMINACAO S.A EM RECUPERACAO JUDICIAL</td><td style='text-align:right'>R$ 7,458.34</td><td style='text-align:center'>5</td><td style='text-align:center;color:#ff5252;font-weight:600'>303 d</td></tr>
-<tr><td>CBX tools comercio de máquinas e ferramentas ltda.</td><td style='text-align:right'>R$ 7,024.20</td><td style='text-align:center'>3</td><td style='text-align:center;color:#ff5252;font-weight:600'>356 d</td></tr>
-<tr><td>Cristallux Comercio Importação e Exportação Ltda</td><td style='text-align:right'>R$ 6,993.68</td><td style='text-align:center'>1</td><td style='text-align:center;color:#ff5252;font-weight:600'>417 d</td></tr>
-<tr><td>JR_VILAS BOAS</td><td style='text-align:right'>R$ 6,900.86</td><td style='text-align:center'>1</td><td style='text-align:center;color:#ff5252;font-weight:600'>331 d</td></tr>
-<tr><td>APP Indústria de Portas Automatizadas Ltda</td><td style='text-align:right'>R$ 6,887.90</td><td style='text-align:center'>2</td><td style='text-align:center;color:#ff5252;font-weight:600'>648 d</td></tr>
-<tr><td>CASTMED INOVACAO EM SAUDE</td><td style='text-align:right'>R$ 6,800.00</td><td style='text-align:center'>4</td><td style='text-align:center;color:#ff5252;font-weight:600'>259 d</td></tr>
-
-  </table>
-</div><div class="card">
-  <div class="card-header" style="border-left:4px solid #E91E63">
-    <span class="emp-emoji">&#x1F3E5;</span>
-    <div>
-      <h2>ICC Medical</h2>
-      <span class="badge" style="background:#E91E6322;color:#E91E63;border:1px solid #E91E6344">8.7% do grupo</span>
-    </div>
-  </div>
-  <div class="metricas">
-    <div class="metrica"><div class="val red">R$ 84,991.16</div><div class="lab">Em aberto</div></div>
-    <div class="metrica"><div class="val">16</div><div class="lab">Clientes</div></div>
-    <div class="metrica"><div class="val">25</div><div class="lab">Titulos</div></div>
-    <div class="metrica"><div class="val" style="color:#ff5252">44.2%</div><div class="lab">Acima 90 dias</div></div>
-  </div>
-  <h3>Aging dos titulos</h3>
-  <table>
-    <tr><th>Faixa</th><th style="text-align:right">Valor</th><th style="text-align:right">%</th></tr>
-    <tr><td style="color:#66bb6a">1 a 30 dias</td><td style="text-align:right">R$ 26,313.78</td><td style="text-align:right;color:#66bb6a">31%</td></tr>
-    <tr><td style="color:#ff9800">31 a 90 dias</td><td style="text-align:right">R$ 21,102.81</td><td style="text-align:right;color:#ff9800">24.8%</td></tr>
-    <tr><td style="color:#ff5252">90+ dias</td><td style="text-align:right">R$ 37,574.57</td><td style="text-align:right;color:#ff5252">44.2%</td></tr>
-  </table>
-  <h3>Top clientes por valor</h3>
-  <table>
-    <tr><th>Cliente</th><th style="text-align:right">Valor</th><th style="text-align:center">Titulos</th><th style="text-align:center">Maior atraso</th></tr>
-    <tr><td>MINAS INDUSTRIA</td><td style='text-align:right'>R$ 18,000.00</td><td style='text-align:center'>4</td><td style='text-align:center;color:#ff5252;font-weight:600'>94 d</td></tr>
-<tr><td>DNAMED BRASIL INDUSTRIA, COMERCIO, IMPORTACAO E EXPORTACAO DE PRODUTOS PARA MEDICINA LTDA</td><td style='text-align:right'>R$ 9,150.38</td><td style='text-align:center'>1</td><td style='text-align:center;color:#ff5252;font-weight:600'>361 d</td></tr>
-<tr><td>CDK</td><td style='text-align:right'>R$ 8,500.00</td><td style='text-align:center'>1</td><td style='text-align:center;color:#66bb6a;font-weight:600'>3 d</td></tr>
-<tr><td>LAUDUZ</td><td style='text-align:right'>R$ 7,038.75</td><td style='text-align:center'>3</td><td style='text-align:center;color:#ff5252;font-weight:600'>281 d</td></tr>
-<tr><td>WUAI GLOBALHUB</td><td style='text-align:right'>R$ 7,000.00</td><td style='text-align:center'>1</td><td style='text-align:center;color:#ff5252;font-weight:600'>109 d</td></tr>
-<tr><td>SALUS BIOMEDICAL</td><td style='text-align:right'>R$ 5,006.40</td><td style='text-align:center'>5</td><td style='text-align:center;color:#ff5252;font-weight:600'>133 d</td></tr>
-<tr><td>PRAXIS COMERCIO E REPRESENTACOES COMERCIAIS LTDA</td><td style='text-align:right'>R$ 4,900.00</td><td style='text-align:center'>1</td><td style='text-align:center;color:#66bb6a;font-weight:600'>4 d</td></tr>
-<tr><td>MIKATOS INDUSTRIA, COMERCIO, SERVICOS E IMPORTACAO LTDA</td><td style='text-align:right'>R$ 4,692.50</td><td style='text-align:center'>1</td><td style='text-align:center;color:#ff9800;font-weight:600'>50 d</td></tr>
-<tr><td>TRADEX MED</td><td style='text-align:right'>R$ 4,379.68</td><td style='text-align:center'>1</td><td style='text-align:center;color:#ff5252;font-weight:600'>158 d</td></tr>
-<tr><td>CASTMED INOVACAO EM SAUDE</td><td style='text-align:right'>R$ 3,003.20</td><td style='text-align:center'>1</td><td style='text-align:center;color:#ff5252;font-weight:600'>276 d</td></tr>
-<tr><td>MULLET</td><td style='text-align:right'>R$ 2,812.50</td><td style='text-align:center'>1</td><td style='text-align:center;color:#66bb6a;font-weight:600'>5 d</td></tr>
-<tr><td>PROJETOS OPTICOS COMERCIAL LTDA</td><td style='text-align:right'>R$ 2,666.67</td><td style='text-align:center'>1</td><td style='text-align:center;color:#66bb6a;font-weight:600'>3 d</td></tr>
-<tr><td>MED LIGHT</td><td style='text-align:right'>R$ 2,500.00</td><td style='text-align:center'>1</td><td style='text-align:center;color:#66bb6a;font-weight:600'>7 d</td></tr>
-<tr><td>PRIME</td><td style='text-align:right'>R$ 2,100.00</td><td style='text-align:center'>1</td><td style='text-align:center;color:#66bb6a;font-weight:600'>4 d</td></tr>
-<tr><td>SFK PRODUTOS DE BELEZA, BIJUTERIAS E ACESSORIOS LTDA</td><td style='text-align:right'>R$ 1,833.33</td><td style='text-align:center'>1</td><td style='text-align:center;color:#66bb6a;font-weight:600'>5 d</td></tr>
-<tr><td>ALLTEC MEDICAMENTOS</td><td style='text-align:right'>R$ 1,407.75</td><td style='text-align:center'>1</td><td style='text-align:center;color:#ff9800;font-weight:600'>76 d</td></tr>
-
-  </table>
+<div class="tabs">
+  <button class="tab-btn active" data-tab="consolidado" onclick="showTab('consolidado')">&#x1F4CA; Consolidado</button>
+  <button class="tab-btn" data-tab="priorizacao" onclick="showTab('priorizacao')">&#x1F3AF; Priorizacao</button>
+  <button class="tab-btn" data-tab="instituto" onclick="showTab('instituto')">&#x1F393; ICC Instituto</button>
+  <button class="tab-btn" data-tab="telecom" onclick="showTab('telecom')">&#x1F4E1; ICC Telecom</button>
+  <button class="tab-btn" data-tab="medical" onclick="showTab('medical')">&#x1F3E5; ICC Medical</button>
 </div>
-<footer>Dados: Omie ERP &nbsp;&middot;&nbsp; Instituto &middot; Telecom &middot; Medical &nbsp;&middot;&nbsp; 02/06/2026 10:24</footer>
+
+<!-- TAB: CONSOLIDADO -->
+<div class="tab-content active" id="consolidado">
+  <div class="company-header" style="background:linear-gradient(135deg,#0d1b2a,#1e3a5f)">
+    <h2>Resumo Executivo Consolidado &mdash; ICC Grupo</h2>
+    <p>Visao Gerencial de Inadimplencia &mdash; 02/06/2026</p>
+  </div>
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-value">R$ 980,150.75</div>
+      <div class="card-label">Total Consolidado em Aberto</div>
+      <div class="card-trends">
+        <div class="trend-item"><span class="trend-period">Dia</span><span class="trend-val "></span></div>
+        <div class="trend-item"><span class="trend-period">Sem</span><span class="trend-val "></span></div>
+        <div class="trend-item"><span class="trend-period">Mes</span><span class="trend-val "></span></div>
+        <div class="trend-item"><span class="trend-period">Tri</span><span class="trend-val "></span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-value">135</div>
+      <div class="card-label">Clientes Inadimplentes</div>
+      <div class="card-trends">
+        <div class="trend-item"><span class="trend-period">Dia</span><span class="trend-val "></span></div>
+        <div class="trend-item"><span class="trend-period">Sem</span><span class="trend-val "></span></div>
+        <div class="trend-item"><span class="trend-period">Mes</span><span class="trend-val flat">&mdash;</span></div>
+        <div class="trend-item"><span class="trend-period">Tri</span><span class="trend-val flat">&mdash;</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-value">280</div>
+      <div class="card-label">Titulos em Aberto</div>
+      <div class="card-trends">
+        <div class="trend-item"><span class="trend-period">Dia</span><span class="trend-val "></span></div>
+        <div class="trend-item"><span class="trend-period">Sem</span><span class="trend-val "></span></div>
+        <div class="trend-item"><span class="trend-period">Mes</span><span class="trend-val flat">&mdash;</span></div>
+        <div class="trend-item"><span class="trend-period">Tri</span><span class="trend-val flat">&mdash;</span></div>
+      </div>
+    </div>
+    <div class="card red">
+      <div class="card-value"></div>
+      <div class="card-label">Casos Criticos (90+ dias)</div>
+      <div class="card-trends">
+        <div class="trend-item"><span class="trend-period">Dia</span><span class="trend-val "></span></div>
+        <div class="trend-item"><span class="trend-period">Sem</span><span class="trend-val "></span></div>
+        <div class="trend-item"><span class="trend-period">Mes</span><span class="trend-val flat">&mdash;</span></div>
+        <div class="trend-item"><span class="trend-period">Tri</span><span class="trend-val flat">&mdash;</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="curr-card">
+    <div class="curr-card-title">&#x1F4C5; INADIMPLENCIA CORRENTE &mdash; Jun/2026</div>
+    <div class="curr-rows"><div class='curr-company-row'><div class='curr-company-name'><div class='curr-dot' style='background:#2196F3'></div>ICC Instituto</div><div><span class='curr-value'>R$ 0.00</span><span class='curr-count'>0 titulo(s)</span></div></div>
+<div class='curr-company-row'><div class='curr-company-name'><div class='curr-dot' style='background:#00BCD4'></div>ICC Telecom</div><div><span class='curr-value'>R$ 2,248.26</span><span class='curr-count'>1 titulo(s)</span></div></div>
+<div class='curr-company-row'><div class='curr-company-name'><div class='curr-dot' style='background:#4CAF50'></div>ICC Medical</div><div><span class='curr-value'>R$ 0.00</span><span class='curr-count'>0 titulo(s)</span></div></div>
+</div>
+    <details class="curr-hist">
+      <summary>Ver historico mensal completo</summary>
+      <div class="curr-hist-wrap">
+        <table class="curr-hist-tbl">
+          <thead><tr><th>Mes</th><th>Instituto</th><th>Telecom</th><th>Medical</th><th>Total</th></tr></thead>
+          <tbody><tr><td>Jun/2026 <span style='font-size:10px;background:#1565c0;color:white;padding:1px 5px;border-radius:3px;font-weight:700'>ATUAL</span></td><td style='color:#ddd'>&#x2014;</td><td style='color:#1e3a5f;font-weight:600'>R$ 2,248.26<br><span style='font-size:10px;color:#bbb'>1 tit.</span></td><td style='color:#ddd'>&#x2014;</td><td style='font-weight:800;color:#1e3a5f'>R$ 2,248.26</td></tr>
+<tr><td>Mai/2026</td><td style='color:#1e3a5f;font-weight:600'>R$ 45,133.33<br><span style='font-size:10px;color:#bbb'>7 tit.</span></td><td style='color:#1e3a5f;font-weight:600'>R$ 86,376.42<br><span style='font-size:10px;color:#bbb'>21 tit.</span></td><td style='color:#1e3a5f;font-weight:600'>R$ 26,313.78<br><span style='font-size:10px;color:#bbb'>8 tit.</span></td><td style='font-weight:800;color:#1e3a5f'>R$ 157,823.53</td></tr>
+<tr><td>Abr/2026</td><td style='color:#1e3a5f;font-weight:600'>R$ 63,932.69<br><span style='font-size:10px;color:#bbb'>12 tit.</span></td><td style='color:#1e3a5f;font-weight:600'>R$ 69,668.04<br><span style='font-size:10px;color:#bbb'>17 tit.</span></td><td style='color:#1e3a5f;font-weight:600'>R$ 9,693.78<br><span style='font-size:10px;color:#bbb'>3 tit.</span></td><td style='font-weight:800;color:#1e3a5f'>R$ 143,294.51</td></tr>
+<tr><td>Mar/2026</td><td style='color:#1e3a5f;font-weight:600'>R$ 49,042.18<br><span style='font-size:10px;color:#bbb'>12 tit.</span></td><td style='color:#1e3a5f;font-weight:600'>R$ 38,664.56<br><span style='font-size:10px;color:#bbb'>11 tit.</span></td><td style='color:#1e3a5f;font-weight:600'>R$ 11,409.03<br><span style='font-size:10px;color:#bbb'>4 tit.</span></td><td style='font-weight:800;color:#1e3a5f'>R$ 99,115.77</td></tr>
+<tr><td>Fev/2026</td><td style='color:#1e3a5f;font-weight:600'>R$ 28,426.34<br><span style='font-size:10px;color:#bbb'>6 tit.</span></td><td style='color:#1e3a5f;font-weight:600'>R$ 20,200.00<br><span style='font-size:10px;color:#bbb'>7 tit.</span></td><td style='color:#1e3a5f;font-weight:600'>R$ 13,001.28<br><span style='font-size:10px;color:#bbb'>3 tit.</span></td><td style='font-weight:800;color:#1e3a5f'>R$ 61,627.62</td></tr>
+<tr><td>Jan/2026</td><td style='color:#1e3a5f;font-weight:600'>R$ 30,685.43<br><span style='font-size:10px;color:#bbb'>5 tit.</span></td><td style='color:#1e3a5f;font-weight:600'>R$ 20,713.60<br><span style='font-size:10px;color:#bbb'>7 tit.</span></td><td style='color:#1e3a5f;font-weight:600'>R$ 1,001.28<br><span style='font-size:10px;color:#bbb'>1 tit.</span></td><td style='font-weight:800;color:#1e3a5f'>R$ 52,400.31</td></tr>
+<tr><td>Dez/2025</td><td style='color:#1e3a5f;font-weight:600'>R$ 15,835.43<br><span style='font-size:10px;color:#bbb'>6 tit.</span></td><td style='color:#1e3a5f;font-weight:600'>R$ 24,090.86<br><span style='font-size:10px;color:#bbb'>9 tit.</span></td><td style='color:#1e3a5f;font-weight:600'>R$ 4,379.68<br><span style='font-size:10px;color:#bbb'>1 tit.</span></td><td style='font-weight:800;color:#1e3a5f'>R$ 44,305.97</td></tr>
+<tr><td>Nov/2025</td><td style='color:#ddd'>&#x2014;</td><td style='color:#1e3a5f;font-weight:600'>R$ 7,500.00<br><span style='font-size:10px;color:#bbb'>1 tit.</span></td><td style='color:#ddd'>&#x2014;</td><td style='font-weight:800;color:#1e3a5f'>R$ 7,500.00</td></tr>
+<tr><td>Out/2025</td><td style='color:#1e3a5f;font-weight:600'>R$ 35,625.00<br><span style='font-size:10px;color:#bbb'>4 tit.</span></td><td style='color:#1e3a5f;font-weight:600'>R$ 25,146.87<br><span style='font-size:10px;color:#bbb'>9 tit.</span></td><td style='color:#1e3a5f;font-weight:600'>R$ 2,346.25<br><span style='font-size:10px;color:#bbb'>1 tit.</span></td><td style='font-weight:800;color:#1e3a5f'>R$ 63,118.12</td></tr>
+<tr><td>Set/2025</td><td style='color:#1e3a5f;font-weight:600'>R$ 26,175.50<br><span style='font-size:10px;color:#bbb'>2 tit.</span></td><td style='color:#1e3a5f;font-weight:600'>R$ 24,799.50<br><span style='font-size:10px;color:#bbb'>11 tit.</span></td><td style='color:#1e3a5f;font-weight:600'>R$ 2,346.25<br><span style='font-size:10px;color:#bbb'>1 tit.</span></td><td style='font-weight:800;color:#1e3a5f'>R$ 53,321.25</td></tr>
+<tr><td>Ago/2025</td><td style='color:#1e3a5f;font-weight:600'>R$ 4,350.00<br><span style='font-size:10px;color:#bbb'>3 tit.</span></td><td style='color:#1e3a5f;font-weight:600'>R$ 33,348.05<br><span style='font-size:10px;color:#bbb'>13 tit.</span></td><td style='color:#1e3a5f;font-weight:600'>R$ 5,349.45<br><span style='font-size:10px;color:#bbb'>2 tit.</span></td><td style='font-weight:800;color:#1e3a5f'>R$ 43,047.50</td></tr>
+<tr><td>Jul/2025</td><td style='color:#1e3a5f;font-weight:600'>R$ 700.00<br><span style='font-size:10px;color:#bbb'>1 tit.</span></td><td style='color:#1e3a5f;font-weight:600'>R$ 52,785.65<br><span style='font-size:10px;color:#bbb'>17 tit.</span></td><td style='color:#ddd'>&#x2014;</td><td style='font-weight:800;color:#1e3a5f'>R$ 53,485.65</td></tr>
+<tr><td>Jun/2025</td><td style='color:#ddd'>&#x2014;</td><td style='color:#1e3a5f;font-weight:600'>R$ 41,603.41<br><span style='font-size:10px;color:#bbb'>16 tit.</span></td><td style='color:#1e3a5f;font-weight:600'>R$ 9,150.38<br><span style='font-size:10px;color:#bbb'>1 tit.</span></td><td style='font-weight:800;color:#1e3a5f'>R$ 50,753.79</td></tr>
+<tr><td>Mai/2025</td><td style='color:#1e3a5f;font-weight:600'>R$ 1,200.00<br><span style='font-size:10px;color:#bbb'>1 tit.</span></td><td style='color:#1e3a5f;font-weight:600'>R$ 17,775.30<br><span style='font-size:10px;color:#bbb'>7 tit.</span></td><td style='color:#ddd'>&#x2014;</td><td style='font-weight:800;color:#1e3a5f'>R$ 18,975.30</td></tr>
+<tr><td>Abr/2025</td><td style='color:#ddd'>&#x2014;</td><td style='color:#1e3a5f;font-weight:600'>R$ 20,777.94<br><span style='font-size:10px;color:#bbb'>7 tit.</span></td><td style='color:#ddd'>&#x2014;</td><td style='font-weight:800;color:#1e3a5f'>R$ 20,777.94</td></tr>
+<tr><td>Mar/2025</td><td style='color:#1e3a5f;font-weight:600'>R$ 102.00<br><span style='font-size:10px;color:#bbb'>1 tit.</span></td><td style='color:#ddd'>&#x2014;</td><td style='color:#ddd'>&#x2014;</td><td style='font-weight:800;color:#1e3a5f'>R$ 102.00</td></tr>
+<tr><td>Fev/2025</td><td style='color:#ddd'>&#x2014;</td><td style='color:#1e3a5f;font-weight:600'>R$ 5,371.40<br><span style='font-size:10px;color:#bbb'>2 tit.</span></td><td style='color:#ddd'>&#x2014;</td><td style='font-weight:800;color:#1e3a5f'>R$ 5,371.40</td></tr>
+<tr><td>Dez/2024</td><td style='color:#1e3a5f;font-weight:600'>R$ 2,225.00<br><span style='font-size:10px;color:#bbb'>1 tit.</span></td><td style='color:#1e3a5f;font-weight:600'>R$ 3,921.40<br><span style='font-size:10px;color:#bbb'>1 tit.</span></td><td style='color:#ddd'>&#x2014;</td><td style='font-weight:800;color:#1e3a5f'>R$ 6,146.40</td></tr>
+<tr><td>Nov/2024</td><td style='color:#1e3a5f;font-weight:600'>R$ 2,225.00<br><span style='font-size:10px;color:#bbb'>1 tit.</span></td><td style='color:#1e3a5f;font-weight:600'>R$ 15,333.86<br><span style='font-size:10px;color:#bbb'>5 tit.</span></td><td style='color:#ddd'>&#x2014;</td><td style='font-weight:800;color:#1e3a5f'>R$ 17,558.86</td></tr>
+<tr><td>Out/2024</td><td style='color:#1e3a5f;font-weight:600'>R$ 1,645.38<br><span style='font-size:10px;color:#bbb'>1 tit.</span></td><td style='color:#1e3a5f;font-weight:600'>R$ 11,452.08<br><span style='font-size:10px;color:#bbb'>3 tit.</span></td><td style='color:#ddd'>&#x2014;</td><td style='font-weight:800;color:#1e3a5f'>R$ 13,097.46</td></tr>
+<tr><td>Set/2024</td><td style='color:#1e3a5f;font-weight:600'>R$ 2,000.00<br><span style='font-size:10px;color:#bbb'>1 tit.</span></td><td style='color:#1e3a5f;font-weight:600'>R$ 11,937.29<br><span style='font-size:10px;color:#bbb'>5 tit.</span></td><td style='color:#ddd'>&#x2014;</td><td style='font-weight:800;color:#1e3a5f'>R$ 13,937.29</td></tr>
+<tr><td>Ago/2024</td><td style='color:#1e3a5f;font-weight:600'>R$ 2,000.00<br><span style='font-size:10px;color:#bbb'>1 tit.</span></td><td style='color:#1e3a5f;font-weight:600'>R$ 16,817.45<br><span style='font-size:10px;color:#bbb'>7 tit.</span></td><td style='color:#ddd'>&#x2014;</td><td style='font-weight:800;color:#1e3a5f'>R$ 18,817.45</td></tr>
+<tr><td>Jul/2024</td><td style='color:#ddd'>&#x2014;</td><td style='color:#1e3a5f;font-weight:600'>R$ 2,900.00<br><span style='font-size:10px;color:#bbb'>1 tit.</span></td><td style='color:#ddd'>&#x2014;</td><td style='font-weight:800;color:#1e3a5f'>R$ 2,900.00</td></tr>
+<tr><td>Jun/2024</td><td style='color:#1e3a5f;font-weight:600'>R$ 2,000.00<br><span style='font-size:10px;color:#bbb'>1 tit.</span></td><td style='color:#1e3a5f;font-weight:600'>R$ 3,500.00<br><span style='font-size:10px;color:#bbb'>1 tit.</span></td><td style='color:#ddd'>&#x2014;</td><td style='font-weight:800;color:#1e3a5f'>R$ 5,500.00</td></tr>
+<tr><td>Mai/2024</td><td style='color:#1e3a5f;font-weight:600'>R$ 6,120.00<br><span style='font-size:10px;color:#bbb'>4 tit.</span></td><td style='color:#ddd'>&#x2014;</td><td style='color:#ddd'>&#x2014;</td><td style='font-weight:800;color:#1e3a5f'>R$ 6,120.00</td></tr>
+<tr><td>Abr/2024</td><td style='color:#1e3a5f;font-weight:600'>R$ 2,820.83<br><span style='font-size:10px;color:#bbb'>2 tit.</span></td><td style='color:#ddd'>&#x2014;</td><td style='color:#ddd'>&#x2014;</td><td style='font-weight:800;color:#1e3a5f'>R$ 2,820.83</td></tr>
+<tr><td>Mar/2024</td><td style='color:#1e3a5f;font-weight:600'>R$ 4,241.77<br><span style='font-size:10px;color:#bbb'>2 tit.</span></td><td style='color:#ddd'>&#x2014;</td><td style='color:#ddd'>&#x2014;</td><td style='font-weight:800;color:#1e3a5f'>R$ 4,241.77</td></tr>
+<tr><td>Fev/2024</td><td style='color:#1e3a5f;font-weight:600'>R$ 11,741.77<br><span style='font-size:10px;color:#bbb'>2 tit.</span></td><td style='color:#ddd'>&#x2014;</td><td style='color:#ddd'>&#x2014;</td><td style='font-weight:800;color:#1e3a5f'>R$ 11,741.77</td></tr>
+</tbody>
+          <tfoot><tr><td>Total acumulado</td><td>R$ 338,227.65</td><td>R$ 556,931.94</td><td>R$ 84,991.16</td><td>R$ 980,150.75</td></tr></tfoot>
+        </table>
+      </div>
+    </details>
+  </div>
+
+  <div class="meta-card">
+    <div class="meta-top">
+      <div>
+        <div class="meta-title">&#x1F3AF; META DE INADIMPLENCIA &mdash; ICC GRUPO</div>
+        <div class="meta-subtitle">Reduzir para <strong>R$ 200,000.00</strong> ate dez/2026 &nbsp;&middot;&nbsp; Definida em 01/06/2026</div>
+      </div>
+      <div class="meta-status-badge" style="color:#e65100;border-color:#e6510040;background:#e6510012">
+        &#x26A0;&#xFE0F; Atencao
+      </div>
+    </div>
+    <div class="meta-gauge-area">
+      <div class="meta-gauge-labels">
+        <span>Inicio&nbsp;(01/06/2026):&nbsp;<strong>R$ 1,031,143.11</strong></span>
+        <span><strong>R$ 200,000.00</strong>&nbsp;&#x1F3C1;&nbsp;Meta&nbsp;dez/26</span>
+      </div>
+      <div class="meta-gauge-track">
+        <div class="meta-gauge-bar"></div>
+        <div class="meta-gauge-dim" style="width:6%"></div>
+        <div class="meta-gauge-knob" style="left:94%" data-label="R$ 980,150.75"></div>
+      </div>
+      <div class="meta-pct-row">
+        <div class="meta-pct-bg"><div class="meta-pct-fill" style="width:6.1%;background:#e53935"></div></div>
+        <span class="meta-pct-txt" style="color:#e53935">6.1%</span>
+      </div>
+    </div>
+    <div class="meta-stats">
+      <div><div class="meta-stat-val" style="color:#1e3a5f">R$ 980,150.75</div><div class="meta-stat-lbl">Inadimplencia atual</div></div>
+      <div><div class="meta-stat-val" style="color:#43a047">R$ 50,992.36</div><div class="meta-stat-lbl">Ja reduzido desde inicio</div></div>
+      <div><div class="meta-stat-val" style="color:#e53935">R$ 780,150.75</div><div class="meta-stat-lbl">Falta reduzir</div></div>
+      <div><div class="meta-stat-val">R$ 3,679.96</div><div class="meta-stat-lbl">Recuperar / dia (necessario)</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Inadimplencia por Empresa</h3>
+    <div class="company-breakdown"><div class='company-row'><div class='company-dot' style='background:#2196F3'></div><div class='company-info'><strong>ICC Instituto</strong><span>76 titulos &nbsp;|&nbsp; 41 clientes</span></div><div class='pct-bar-wrap'><div class='pct-bar-bg'><div class='pct-bar' style='width:34.5%;background:#2196F3'></div></div></div><div class='company-value'><strong>R$ 338,227.65</strong><span>34.5% do total</span></div></div>
+<div class='company-row'><div class='company-dot' style='background:#00BCD4'></div><div class='company-info'><strong>ICC Telecom</strong><span>179 titulos &nbsp;|&nbsp; 78 clientes</span></div><div class='pct-bar-wrap'><div class='pct-bar-bg'><div class='pct-bar' style='width:56.8%;background:#00BCD4'></div></div></div><div class='company-value'><strong>R$ 556,931.94</strong><span>56.8% do total</span></div></div>
+<div class='company-row'><div class='company-dot' style='background:#4CAF50'></div><div class='company-info'><strong>ICC Medical</strong><span>25 titulos &nbsp;|&nbsp; 16 clientes</span></div><div class='pct-bar-wrap'><div class='pct-bar-bg'><div class='pct-bar' style='width:8.7%;background:#4CAF50'></div></div></div><div class='company-value'><strong>R$ 84,991.16</strong><span>8.7% do total</span></div></div>
+</div>
+  </div>
+</div>
+
+<!-- TAB: PRIORIZACAO -->
+<div class="tab-content" id="priorizacao">
+  <div class="company-header" style="background:linear-gradient(135deg,#1a1a2e,#16213e)">
+    <h2>&#x1F3AF; Priorizacao de Cobranca</h2>
+    <p>Ordem de ataque para maxima recuperacao de caixa &mdash; 02/06/2026</p>
+  </div>
+  <div class="prio-summary">
+    <div class="prio-card caixa">
+      <div class="prio-card-title">&#x1F4B5; CAIXA RAPIDO (1-30d)</div>
+      <div class="prio-card-value">R$ 0.00</div>
+      <div class="prio-card-sub">20 cliente(s) &middot; maior chance de recuperacao</div>
+    </div>
+    <div class="prio-card negociacao">
+      <div class="prio-card-title">&#x1F91D; NEGOCIACAO (31-90d)</div>
+      <div class="prio-card-value">R$ 0.00</div>
+      <div class="prio-card-sub">114 cliente(s) &middot; exige contato executivo</div>
+    </div>
+    <div class="prio-card regua">
+      <div class="prio-card-title">&#x2696;&#xFE0F; REGUA / JURIDICO (90+d)</div>
+      <div class="prio-card-value">R$ 0.00</div>
+      <div class="prio-card-sub">1 cliente(s) &middot; recuperacao judicial/protesto</div>
+    </div>
+  </div>
+  <div class="section">
+    <h3>Lista Completa de Priorizacao</h3>
+    <div class="prio-table-wrap">
+      <table class="prio-table" id="prioTable">
+        <thead>
+          <tr>
+            <th onclick="sortPrio(0)">Cliente</th>
+            <th onclick="sortPrio(1)">Empresa</th>
+            <th onclick="sortPrio(2)" style="text-align:right">Valor</th>
+            <th onclick="sortPrio(3)" style="text-align:center">Dias</th>
+            <th onclick="sortPrio(4)" style="text-align:center">Faixa</th>
+            <th onclick="sortPrio(5)" style="text-align:center">Grupo</th>
+            <th style="text-align:center">Titulos</th>
+          </tr>
+        </thead>
+        <tbody id="prioBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="tab-content" id="instituto">
+  <div class="company-header" style="background:linear-gradient(135deg,#1e3a5f,#2196F3)">
+    <h2>ICC Instituto</h2>
+    <p>Relatorio de Inadimplencia &mdash; 02/06/2026</p>
+  </div>
+  <div class="cards-grid">
+    <div class="card"><div class="card-value">R$ 338,227.65</div><div class="card-label">Total Inadimplente</div></div>
+    <div class="card"><div class="card-value">41</div><div class="card-label">Clientes em Atraso</div></div>
+    <div class="card"><div class="card-value">76</div><div class="card-label">Titulos em Aberto</div></div>
+    <div class="card red"><div class="card-value">45</div><div class="card-label">Casos Criticos (90+ dias)</div></div>
+  </div>
+  <div class="section">
+    <h3>&#x23F0; Aging dos Titulos</h3>
+    <div class="aging-grid">
+      <div class="aging-box green"><div class="aging-count">7</div><div class="aging-label">1-30 dias</div><div class="aging-value">R$ 45,133.33</div></div>
+      <div class="aging-box yellow"><div class="aging-count">12</div><div class="aging-label">31-60 dias</div><div class="aging-value">R$ 63,932.69</div></div>
+      <div class="aging-box orange"><div class="aging-count">12</div><div class="aging-label">61-90 dias</div><div class="aging-value">R$ 49,042.18</div></div>
+      <div class="aging-box red"><div class="aging-count">45</div><div class="aging-label">90+ dias</div><div class="aging-value">R$ 180,119.45</div></div>
+    </div>
+  </div>
+  <div class="section"><h3>&#x1F4A1; Insights do Dia</h3><div class='insight-card danger'><div class='insight-icon'>&#x1F6A8;</div><div><div class='insight-title'>Risco Critico</div><div class='insight-text'>45 titulo(s) acima de 90 dias totalizando R$ 180,119.45. Alta probabilidade de perda definitiva.</div></div></div>
+<div class='insight-card warning'><div class='insight-icon'>&#x26A0;&#xFE0F;</div><div><div class='insight-title'>Concentracao Critica</div><div class='insight-text'>Mais de 53.3% da inadimplencia de Instituto esta acima de 90 dias. Revisao urgente de politica de credito.</div></div></div>
+<div class='insight-card info'><div class='insight-icon'>&#x1F4A1;</div><div><div class='insight-title'>Oportunidade Imediata</div><div class='insight-text'>7 titulo(s) com 1-30 dias em atraso (R$ 45,133.33). Cobranca ativa agora tem alta chance de recuperacao.</div></div></div>
+</div>
+  <div class="section"><h3>&#x2705; Acoes Recomendadas</h3><div class='action-group'><div class='action-header red'>&#x1F6A8; URGENTE &mdash; 90+ dias</div><div class='action-item red'>Contato executivo: INDUSTRIA BRASILEIRA DE MUNICOES S.A. (R$ 52,050.50)</div><div class='action-item red'>Contato executivo: J.C ASSESSORIA LTDA (R$ 48,566.67)</div><div class='action-item red'>Contato executivo: LUMINATTI BY DANURI (R$ 21,000.00)</div></div>
+<div class='action-group'><div class='action-header orange'>&#x1F4DE; PRIORIDADE &mdash; 1-60 dias</div><div class='action-item orange'>Cobranca ativa: MAROALTA LOGISTICA INTERNACIONAL (R$ 23,299.99)</div><div class='action-item orange'>Cobranca ativa: DATAN COMERCIAL DO BRASIL LTDA (R$ 16,192.72)</div><div class='action-item orange'>Cobranca ativa: STAR-MED (R$ 9,000.00)</div></div>
+</div>
+  <div class="section">
+    <h3>&#x1F4CB; Detalhamento por Cliente (Top 30)</h3>
+    <div class="table-container">
+      <table>
+        <thead><tr><th>Cliente</th><th style="text-align:right">Valor em Aberto</th><th style="text-align:center">Titulos</th><th style="text-align:center">Maior Atraso</th><th style="text-align:center">Faixa</th></tr></thead>
+        <tbody><tr><td>INDUSTRIA BRASILEIRA DE MUNICOES S.A.</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 52,050.50</td><td style='text-align:center'>2</td><td style='text-align:center'><span class='badge red'>253 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>J.C ASSESSORIA LTDA</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 48,566.67</td><td style='text-align:center'>9</td><td style='text-align:center'><span class='badge red'>169 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>MAROALTA LOGISTICA INTERNACIONAL</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 23,299.99</td><td style='text-align:center'>2</td><td style='text-align:center'><span class='badge yellow'>53 dias</span></td><td style='text-align:center'><span class='badge yellow'>31-60d</span></td></tr>
+<tr><td>LUMINATTI BY DANURI</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 21,000.00</td><td style='text-align:center'>1</td><td style='text-align:center'><span class='badge red'>130 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>REALSKY COMERCIO IMPORTACAO E EXPORTACAO</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 17,224.70</td><td style='text-align:center'>3</td><td style='text-align:center'><span class='badge orange'>75 dias</span></td><td style='text-align:center'><span class='badge orange'>61-90d</span></td></tr>
+<tr><td>DATAN COMERCIAL DO BRASIL LTDA</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 16,192.72</td><td style='text-align:center'>3</td><td style='text-align:center'><span class='badge yellow'>54 dias</span></td><td style='text-align:center'><span class='badge yellow'>31-60d</span></td></tr>
+<tr><td>BRV AMMUNITION LTDA</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 12,000.00</td><td style='text-align:center'>4</td><td style='text-align:center'><span class='badge orange'>81 dias</span></td><td style='text-align:center'><span class='badge orange'>61-90d</span></td></tr>
+<tr><td>EFICILUX COMERCIO E SERVICO DE EQUIPAMENTOS ELETRICOS</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 12,000.00</td><td style='text-align:center'>6</td><td style='text-align:center'><span class='badge red'>762 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>BRAINZ HOLDING LTDA</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 10,000.00</td><td style='text-align:center'>1</td><td style='text-align:center'><span class='badge orange'>71 dias</span></td><td style='text-align:center'><span class='badge orange'>61-90d</span></td></tr>
+<tr><td>ARSHED SUHEEL NAJEM LTDA</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 9,600.00</td><td style='text-align:center'>1</td><td style='text-align:center'><span class='badge red'>838 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>STAR-MED</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 9,000.00</td><td style='text-align:center'>1</td><td style='text-align:center'><span class='badge green'>4 dias</span></td><td style='text-align:center'><span class='badge green'>1-30d</span></td></tr>
+<tr><td>PARTNERUS</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 8,993.34</td><td style='text-align:center'>3</td><td style='text-align:center'><span class='badge red'>120 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>RICK COMERCIO E LOCACAO LTDA</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 7,299.30</td><td style='text-align:center'>1</td><td style='text-align:center'><span class='badge yellow'>47 dias</span></td><td style='text-align:center'><span class='badge yellow'>31-60d</span></td></tr>
+<tr><td>CTC LOGISTICA</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 7,110.28</td><td style='text-align:center'>1</td><td style='text-align:center'><span class='badge red'>103 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>VELTON PREMIUM</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 6,654.80</td><td style='text-align:center'>3</td><td style='text-align:center'><span class='badge red'>110 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>F7 FASHION</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 6,596.36</td><td style='text-align:center'>1</td><td style='text-align:center'><span class='badge yellow'>54 dias</span></td><td style='text-align:center'><span class='badge yellow'>31-60d</span></td></tr>
+<tr><td>SPRINGS</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 6,596.36</td><td style='text-align:center'>1</td><td style='text-align:center'><span class='badge yellow'>54 dias</span></td><td style='text-align:center'><span class='badge yellow'>31-60d</span></td></tr>
+<tr><td>HYPER CLUB</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 6,500.00</td><td style='text-align:center'>1</td><td style='text-align:center'><span class='badge red'>113 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>INDBRAS ILUMINACAO</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 5,666.66</td><td style='text-align:center'>4</td><td style='text-align:center'><span class='badge red'>155 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>J.SHAN COMERCIO EXTERIOR LTDA</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 5,000.00</td><td style='text-align:center'>1</td><td style='text-align:center'><span class='badge red'>94 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>ROBERT BOSCH LIMITADA</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 5,000.00</td><td style='text-align:center'>1</td><td style='text-align:center'><span class='badge red'>241 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>L&amp;amp;G IMPORTACOES</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 4,650.00</td><td style='text-align:center'>1</td><td style='text-align:center'><span class='badge red'>169 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>TOP 3</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 4,504.20</td><td style='text-align:center'>2</td><td style='text-align:center'><span class='badge red'>159 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>AQUALLY BANHEIRAS</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 4,450.00</td><td style='text-align:center'>2</td><td style='text-align:center'><span class='badge red'>568 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>REDE NORDESTE SEGURANCA</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 4,283.54</td><td style='text-align:center'>2</td><td style='text-align:center'><span class='badge red'>831 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>INTEL LUX LIGHTING TECHNOLOGY DO BRASIL LTDA</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 4,200.00</td><td style='text-align:center'>2</td><td style='text-align:center'><span class='badge red'>812 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>PADTEC S/A</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 3,500.00</td><td style='text-align:center'>1</td><td style='text-align:center'><span class='badge red'>297 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>INBRA-TECNOLOGIA E DEFESA INDUSTRIA E COMERCIO LTDA.</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 3,000.00</td><td style='text-align:center'>1</td><td style='text-align:center'><span class='badge red'>216 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>HAYAMAX ASA-BRANCA</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 2,200.00</td><td style='text-align:center'>1</td><td style='text-align:center'><span class='badge yellow'>55 dias</span></td><td style='text-align:center'><span class='badge yellow'>31-60d</span></td></tr>
+<tr><td>G R DE ALMEIDA LTDA</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 2,100.00</td><td style='text-align:center'>1</td><td style='text-align:center'><span class='badge orange'>90 dias</span></td><td style='text-align:center'><span class='badge orange'>61-90d</span></td></tr>
+</tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="tab-content" id="telecom">
+  <div class="company-header" style="background:linear-gradient(135deg,#004d5f,#00BCD4)">
+    <h2>ICC Telecom</h2>
+    <p>Relatorio de Inadimplencia &mdash; 02/06/2026</p>
+  </div>
+  <div class="cards-grid">
+    <div class="card"><div class="card-value">R$ 556,931.94</div><div class="card-label">Total Inadimplente</div></div>
+    <div class="card"><div class="card-value">78</div><div class="card-label">Clientes em Atraso</div></div>
+    <div class="card"><div class="card-value">179</div><div class="card-label">Titulos em Aberto</div></div>
+    <div class="card red"><div class="card-value">129</div><div class="card-label">Casos Criticos (90+ dias)</div></div>
+  </div>
+  <div class="section">
+    <h3>&#x23F0; Aging dos Titulos</h3>
+    <div class="aging-grid">
+      <div class="aging-box green"><div class="aging-count">22</div><div class="aging-label">1-30 dias</div><div class="aging-value">R$ 88,624.68</div></div>
+      <div class="aging-box yellow"><div class="aging-count">17</div><div class="aging-label">31-60 dias</div><div class="aging-value">R$ 69,668.04</div></div>
+      <div class="aging-box orange"><div class="aging-count">11</div><div class="aging-label">61-90 dias</div><div class="aging-value">R$ 38,664.56</div></div>
+      <div class="aging-box red"><div class="aging-count">129</div><div class="aging-label">90+ dias</div><div class="aging-value">R$ 359,974.66</div></div>
+    </div>
+  </div>
+  <div class="section"><h3>&#x1F4A1; Insights do Dia</h3><div class='insight-card danger'><div class='insight-icon'>&#x1F6A8;</div><div><div class='insight-title'>Risco Critico</div><div class='insight-text'>129 titulo(s) acima de 90 dias totalizando R$ 359,974.66. Alta probabilidade de perda definitiva.</div></div></div>
+<div class='insight-card warning'><div class='insight-icon'>&#x26A0;&#xFE0F;</div><div><div class='insight-title'>Concentracao Critica</div><div class='insight-text'>Mais de 64.6% da inadimplencia de Telecom esta acima de 90 dias. Revisao urgente de politica de credito.</div></div></div>
+<div class='insight-card info'><div class='insight-icon'>&#x1F4A1;</div><div><div class='insight-title'>Oportunidade Imediata</div><div class='insight-text'>22 titulo(s) com 1-30 dias em atraso (R$ 88,624.68). Cobranca ativa agora tem alta chance de recuperacao.</div></div></div>
+</div>
+  <div class="section"><h3>&#x2705; Acoes Recomendadas</h3><div class='action-group'><div class='action-header red'>&#x1F6A8; URGENTE &mdash; 90+ dias</div><div class='action-item red'>Contato executivo: J.C ASSESSORIA LTDA (R$ 40,000.00)</div><div class='action-item red'>Contato executivo: GLAMOUR TOOLS BRASIL LTDA. (R$ 23,269.17)</div><div class='action-item red'>Contato executivo: DISTRIBUIDORA PV (R$ 21,027.84)</div></div>
+<div class='action-group'><div class='action-header orange'>&#x1F4DE; PRIORIDADE &mdash; 1-60 dias</div><div class='action-item orange'>Cobranca ativa: RODRIGUES COLCHOES (R$ 13,200.00)</div><div class='action-item orange'>Cobranca ativa: STAR-MED (R$ 11,250.00)</div><div class='action-item orange'>Cobranca ativa: FLECHA AZUL CLASSIC BUS (R$ 6,642.58)</div></div>
+</div>
+  <div class="section">
+    <h3>&#x1F4CB; Detalhamento por Cliente (Top 30)</h3>
+    <div class="table-container">
+      <table>
+        <thead><tr><th>Cliente</th><th style="text-align:right">Valor em Aberto</th><th style="text-align:center">Titulos</th><th style="text-align:center">Maior Atraso</th><th style="text-align:center">Faixa</th></tr></thead>
+        <tbody><tr><td>J.C ASSESSORIA LTDA</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 40,000.00</td><td style='text-align:center'>22</td><td style='text-align:center'><span class='badge red'>291 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>MIYA GLORIA COMMERCIAL LTDA</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 37,483.94</td><td style='text-align:center'>3</td><td style='text-align:center'><span class='badge orange'>73 dias</span></td><td style='text-align:center'><span class='badge orange'>61-90d</span></td></tr>
+<tr><td>PREMIUM SUPPLY</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 32,166.68</td><td style='text-align:center'>2</td><td style='text-align:center'><span class='badge orange'>67 dias</span></td><td style='text-align:center'><span class='badge orange'>61-90d</span></td></tr>
+<tr><td>GLAMOUR TOOLS BRASIL LTDA.</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 23,269.17</td><td style='text-align:center'>8</td><td style='text-align:center'><span class='badge red'>569 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>DISTRIBUIDORA PV</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 21,027.84</td><td style='text-align:center'>9</td><td style='text-align:center'><span class='badge red'>417 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>EASY SERVICOS EM CERTIFICACOES LTDA</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 18,700.00</td><td style='text-align:center'>5</td><td style='text-align:center'><span class='badge red'>346 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>FREECOOK BRASIL</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 17,510.84</td><td style='text-align:center'>4</td><td style='text-align:center'><span class='badge red'>371 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>VIA SOLUTION LTDA</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 14,582.42</td><td style='text-align:center'>4</td><td style='text-align:center'><span class='badge red'>339 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>ADVICE COMERCIO EXTERIOR</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 13,366.67</td><td style='text-align:center'>5</td><td style='text-align:center'><span class='badge red'>677 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>NORTE BRASIL CERTIFICACOES</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 13,316.70</td><td style='text-align:center'>9</td><td style='text-align:center'><span class='badge red'>398 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>RODRIGUES COLCHOES</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 13,200.00</td><td style='text-align:center'>2</td><td style='text-align:center'><span class='badge green'>11 dias</span></td><td style='text-align:center'><span class='badge green'>1-30d</span></td></tr>
+<tr><td>CAFE COZINHA COMERCIO DE UTENSILIOS LTDA</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 11,642.80</td><td style='text-align:center'>3</td><td style='text-align:center'><span class='badge red'>524 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>DICA DESENVOLVIMENTO DE PESSOAS LTDA</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 11,500.00</td><td style='text-align:center'>4</td><td style='text-align:center'><span class='badge orange'>71 dias</span></td><td style='text-align:center'><span class='badge orange'>61-90d</span></td></tr>
+<tr><td>STAR-MED</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 11,250.00</td><td style='text-align:center'>1</td><td style='text-align:center'><span class='badge green'>4 dias</span></td><td style='text-align:center'><span class='badge green'>1-30d</span></td></tr>
+<tr><td>STAR LIGHT COMERCIO DE PRESENTES E ARTIGOS ELETRO-ELETRONICO</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 9,358.10</td><td style='text-align:center'>2</td><td style='text-align:center'><span class='badge red'>300 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>MERAKI NEGOCIOS INTERNACIONAIS LTDA</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 9,288.00</td><td style='text-align:center'>1</td><td style='text-align:center'><span class='badge red'>123 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>ELETRICA NORDESTE</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 7,800.00</td><td style='text-align:center'>5</td><td style='text-align:center'><span class='badge red'>656 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>GPJ INFORMATICA</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 7,500.00</td><td style='text-align:center'>1</td><td style='text-align:center'><span class='badge red'>210 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>RICARDO RODRIGUES LOUZADA RINALDI LTDA</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 7,500.00</td><td style='text-align:center'>1</td><td style='text-align:center'><span class='badge red'>222 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>ORION SOLUCOES EM ILUMINACAO S.A EM RECUPERACAO JUDICIAL</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 7,458.34</td><td style='text-align:center'>5</td><td style='text-align:center'><span class='badge red'>303 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>CBX tools comercio de máquinas e ferramentas ltda.</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 7,024.20</td><td style='text-align:center'>3</td><td style='text-align:center'><span class='badge red'>356 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>Cristallux Comercio Importação e Exportação Ltda</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 6,993.68</td><td style='text-align:center'>1</td><td style='text-align:center'><span class='badge red'>417 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>JR_VILAS BOAS</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 6,900.86</td><td style='text-align:center'>1</td><td style='text-align:center'><span class='badge red'>331 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>APP Indústria de Portas Automatizadas Ltda</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 6,887.90</td><td style='text-align:center'>2</td><td style='text-align:center'><span class='badge red'>648 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>CASTMED INOVACAO EM SAUDE</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 6,800.00</td><td style='text-align:center'>4</td><td style='text-align:center'><span class='badge red'>259 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>DDMAQUINAS</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 6,784.16</td><td style='text-align:center'>2</td><td style='text-align:center'><span class='badge red'>583 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>Blanke Comércio Ltda</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 6,773.90</td><td style='text-align:center'>3</td><td style='text-align:center'><span class='badge red'>316 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>Startools Ferramentas</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 6,690.86</td><td style='text-align:center'>1</td><td style='text-align:center'><span class='badge red'>173 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>FLECHA AZUL CLASSIC BUS</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 6,642.58</td><td style='text-align:center'>1</td><td style='text-align:center'><span class='badge yellow'>34 dias</span></td><td style='text-align:center'><span class='badge yellow'>31-60d</span></td></tr>
+<tr><td>TECNEO IMPORTACAO</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 6,595.76</td><td style='text-align:center'>2</td><td style='text-align:center'><span class='badge orange'>74 dias</span></td><td style='text-align:center'><span class='badge orange'>61-90d</span></td></tr>
+</tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="tab-content" id="medical">
+  <div class="company-header" style="background:linear-gradient(135deg,#1b4d1f,#4CAF50)">
+    <h2>ICC Medical</h2>
+    <p>Relatorio de Inadimplencia &mdash; 02/06/2026</p>
+  </div>
+  <div class="cards-grid">
+    <div class="card"><div class="card-value">R$ 84,991.16</div><div class="card-label">Total Inadimplente</div></div>
+    <div class="card"><div class="card-value">16</div><div class="card-label">Clientes em Atraso</div></div>
+    <div class="card"><div class="card-value">25</div><div class="card-label">Titulos em Aberto</div></div>
+    <div class="card red"><div class="card-value">10</div><div class="card-label">Casos Criticos (90+ dias)</div></div>
+  </div>
+  <div class="section">
+    <h3>&#x23F0; Aging dos Titulos</h3>
+    <div class="aging-grid">
+      <div class="aging-box green"><div class="aging-count">8</div><div class="aging-label">1-30 dias</div><div class="aging-value">R$ 26,313.78</div></div>
+      <div class="aging-box yellow"><div class="aging-count">3</div><div class="aging-label">31-60 dias</div><div class="aging-value">R$ 9,693.78</div></div>
+      <div class="aging-box orange"><div class="aging-count">4</div><div class="aging-label">61-90 dias</div><div class="aging-value">R$ 11,409.03</div></div>
+      <div class="aging-box red"><div class="aging-count">10</div><div class="aging-label">90+ dias</div><div class="aging-value">R$ 37,574.57</div></div>
+    </div>
+  </div>
+  <div class="section"><h3>&#x1F4A1; Insights do Dia</h3><div class='insight-card danger'><div class='insight-icon'>&#x1F6A8;</div><div><div class='insight-title'>Risco Critico</div><div class='insight-text'>10 titulo(s) acima de 90 dias totalizando R$ 37,574.57. Alta probabilidade de perda definitiva.</div></div></div>
+<div class='insight-card info'><div class='insight-icon'>&#x1F4A1;</div><div><div class='insight-title'>Oportunidade Imediata</div><div class='insight-text'>8 titulo(s) com 1-30 dias em atraso (R$ 26,313.78). Cobranca ativa agora tem alta chance de recuperacao.</div></div></div>
+</div>
+  <div class="section"><h3>&#x2705; Acoes Recomendadas</h3><div class='action-group'><div class='action-header red'>&#x1F6A8; URGENTE &mdash; 90+ dias</div><div class='action-item red'>Contato executivo: MINAS INDUSTRIA (R$ 18,000.00)</div><div class='action-item red'>Contato executivo: DNAMED BRASIL INDUSTRIA, COMERCIO, IMPORTACAO E EXPORTACAO DE PRODUTOS PARA MEDICINA LTDA (R$ 9,150.38)</div><div class='action-item red'>Contato executivo: LAUDUZ (R$ 7,038.75)</div></div>
+<div class='action-group'><div class='action-header orange'>&#x1F4DE; PRIORIDADE &mdash; 1-60 dias</div><div class='action-item orange'>Cobranca ativa: CDK (R$ 8,500.00)</div><div class='action-item orange'>Cobranca ativa: PRAXIS COMERCIO E REPRESENTACOES COMERCIAIS LTDA (R$ 4,900.00)</div><div class='action-item orange'>Cobranca ativa: MIKATOS INDUSTRIA, COMERCIO, SERVICOS E IMPORTACAO LTDA (R$ 4,692.50)</div></div>
+</div>
+  <div class="section">
+    <h3>&#x1F4CB; Detalhamento por Cliente (Top 30)</h3>
+    <div class="table-container">
+      <table>
+        <thead><tr><th>Cliente</th><th style="text-align:right">Valor em Aberto</th><th style="text-align:center">Titulos</th><th style="text-align:center">Maior Atraso</th><th style="text-align:center">Faixa</th></tr></thead>
+        <tbody><tr><td>MINAS INDUSTRIA</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 18,000.00</td><td style='text-align:center'>4</td><td style='text-align:center'><span class='badge red'>94 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>DNAMED BRASIL INDUSTRIA, COMERCIO, IMPORTACAO E EXPORTACAO DE PRODUTOS PARA MEDICINA LTDA</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 9,150.38</td><td style='text-align:center'>1</td><td style='text-align:center'><span class='badge red'>361 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>CDK</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 8,500.00</td><td style='text-align:center'>1</td><td style='text-align:center'><span class='badge green'>3 dias</span></td><td style='text-align:center'><span class='badge green'>1-30d</span></td></tr>
+<tr><td>LAUDUZ</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 7,038.75</td><td style='text-align:center'>3</td><td style='text-align:center'><span class='badge red'>281 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>WUAI GLOBALHUB</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 7,000.00</td><td style='text-align:center'>1</td><td style='text-align:center'><span class='badge red'>109 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>SALUS BIOMEDICAL</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 5,006.40</td><td style='text-align:center'>5</td><td style='text-align:center'><span class='badge red'>133 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>PRAXIS COMERCIO E REPRESENTACOES COMERCIAIS LTDA</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 4,900.00</td><td style='text-align:center'>1</td><td style='text-align:center'><span class='badge green'>4 dias</span></td><td style='text-align:center'><span class='badge green'>1-30d</span></td></tr>
+<tr><td>MIKATOS INDUSTRIA, COMERCIO, SERVICOS E IMPORTACAO LTDA</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 4,692.50</td><td style='text-align:center'>1</td><td style='text-align:center'><span class='badge yellow'>50 dias</span></td><td style='text-align:center'><span class='badge yellow'>31-60d</span></td></tr>
+<tr><td>TRADEX MED</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 4,379.68</td><td style='text-align:center'>1</td><td style='text-align:center'><span class='badge red'>158 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>CASTMED INOVACAO EM SAUDE</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 3,003.20</td><td style='text-align:center'>1</td><td style='text-align:center'><span class='badge red'>276 dias</span></td><td style='text-align:center'><span class='badge red'>90+d</span></td></tr>
+<tr><td>MULLET</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 2,812.50</td><td style='text-align:center'>1</td><td style='text-align:center'><span class='badge green'>5 dias</span></td><td style='text-align:center'><span class='badge green'>1-30d</span></td></tr>
+<tr><td>PROJETOS OPTICOS COMERCIAL LTDA</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 2,666.67</td><td style='text-align:center'>1</td><td style='text-align:center'><span class='badge green'>3 dias</span></td><td style='text-align:center'><span class='badge green'>1-30d</span></td></tr>
+<tr><td>MED LIGHT</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 2,500.00</td><td style='text-align:center'>1</td><td style='text-align:center'><span class='badge green'>7 dias</span></td><td style='text-align:center'><span class='badge green'>1-30d</span></td></tr>
+<tr><td>PRIME</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 2,100.00</td><td style='text-align:center'>1</td><td style='text-align:center'><span class='badge green'>4 dias</span></td><td style='text-align:center'><span class='badge green'>1-30d</span></td></tr>
+<tr><td>SFK PRODUTOS DE BELEZA, BIJUTERIAS E ACESSORIOS LTDA</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 1,833.33</td><td style='text-align:center'>1</td><td style='text-align:center'><span class='badge green'>5 dias</span></td><td style='text-align:center'><span class='badge green'>1-30d</span></td></tr>
+<tr><td>ALLTEC MEDICAMENTOS</td><td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ 1,407.75</td><td style='text-align:center'>1</td><td style='text-align:center'><span class='badge orange'>76 dias</span></td><td style='text-align:center'><span class='badge orange'>61-90d</span></td></tr>
+</tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.tab-content').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  var tab = document.getElementById(id);
+  if (tab) tab.classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(function(btn){
+    if (btn.getAttribute('data-tab') === id) btn.classList.add('active');
+  });
+}
+
+var D=[{"n":"INDUSTRIA BRASILEIRA DE MUNICOES S.A.","c":"ICC Instituto","v":52050.5,"d":253,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":2},{"n":"J.C ASSESSORIA LTDA","c":"ICC Instituto","v":48566.67,"d":169,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":9},{"n":"J.C ASSESSORIA LTDA","c":"ICC Telecom","v":40000,"d":291,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":22},{"n":"MIYA GLORIA COMMERCIAL LTDA","c":"ICC Telecom","v":37483.94,"d":73,"a":"61-90 dias","g":"negociacao","go":2,"p":1,"cnt":3},{"n":"PREMIUM SUPPLY","c":"ICC Telecom","v":32166.68,"d":67,"a":"61-90 dias","g":"negociacao","go":2,"p":1,"cnt":2},{"n":"MAROALTA LOGISTICA INTERNACIONAL","c":"ICC Instituto","v":23299.99,"d":53,"a":"31-60 dias","g":"transicao","go":1,"p":1,"cnt":2},{"n":"GLAMOUR TOOLS BRASIL LTDA.","c":"ICC Telecom","v":23269.17,"d":569,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":8},{"n":"DISTRIBUIDORA PV","c":"ICC Telecom","v":21027.84,"d":417,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":9},{"n":"LUMINATTI BY DANURI","c":"ICC Instituto","v":21000,"d":130,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":1},{"n":"EASY SERVICOS EM CERTIFICACOES LTDA","c":"ICC Telecom","v":18700,"d":346,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":5},{"n":"MINAS INDUSTRIA","c":"ICC Medical","v":18000,"d":94,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":4},{"n":"FREECOOK BRASIL","c":"ICC Telecom","v":17510.84,"d":371,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":4},{"n":"REALSKY COMERCIO IMPORTACAO E EXPORTACAO","c":"ICC Instituto","v":17224.7,"d":75,"a":"61-90 dias","g":"negociacao","go":2,"p":1,"cnt":3},{"n":"DATAN COMERCIAL DO BRASIL LTDA","c":"ICC Instituto","v":16192.72,"d":54,"a":"31-60 dias","g":"transicao","go":1,"p":1,"cnt":3},{"n":"VIA SOLUTION LTDA","c":"ICC Telecom","v":14582.42,"d":339,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":4},{"n":"ADVICE COMERCIO EXTERIOR","c":"ICC Telecom","v":13366.67,"d":677,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":5},{"n":"NORTE BRASIL CERTIFICACOES","c":"ICC Telecom","v":13316.7,"d":398,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":9},{"n":"RODRIGUES COLCHOES","c":"ICC Telecom","v":13200,"d":11,"a":"1-30 dias","g":"caixa","go":0,"p":1,"cnt":2},{"n":"EFICILUX COMERCIO E SERVICO DE EQUIPAMENTOS ELETRICOS","c":"ICC Instituto","v":12000,"d":762,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":6},{"n":"BRV AMMUNITION LTDA","c":"ICC Instituto","v":12000,"d":81,"a":"61-90 dias","g":"negociacao","go":2,"p":1,"cnt":4},{"n":"CAFE COZINHA COMERCIO DE UTENSILIOS LTDA","c":"ICC Telecom","v":11642.8,"d":524,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":3},{"n":"DICA DESENVOLVIMENTO DE PESSOAS LTDA","c":"ICC Telecom","v":11500,"d":71,"a":"61-90 dias","g":"negociacao","go":2,"p":1,"cnt":4},{"n":"STAR-MED","c":"ICC Telecom","v":11250,"d":4,"a":"1-30 dias","g":"caixa","go":0,"p":1,"cnt":1},{"n":"BRAINZ HOLDING LTDA","c":"ICC Instituto","v":10000,"d":71,"a":"61-90 dias","g":"negociacao","go":2,"p":1,"cnt":1},{"n":"ARSHED SUHEEL NAJEM LTDA","c":"ICC Instituto","v":9600,"d":838,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":1},{"n":"STAR LIGHT COMERCIO DE PRESENTES E ARTIGOS ELETRO-ELETRONICO","c":"ICC Telecom","v":9358.1,"d":300,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":2},{"n":"MERAKI NEGOCIOS INTERNACIONAIS LTDA","c":"ICC Telecom","v":9288,"d":123,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":1},{"n":"DNAMED BRASIL INDUSTRIA, COMERCIO, IMPORTACAO E EXPORTACAO DE PRODUTOS PARA MEDICINA LTDA","c":"ICC Medical","v":9150.38,"d":361,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":1},{"n":"STAR-MED","c":"ICC Instituto","v":9000,"d":4,"a":"1-30 dias","g":"caixa","go":0,"p":1,"cnt":1},{"n":"PARTNERUS","c":"ICC Instituto","v":8993.34,"d":120,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":3},{"n":"CDK","c":"ICC Medical","v":8500,"d":3,"a":"1-30 dias","g":"caixa","go":0,"p":1,"cnt":1},{"n":"ELETRICA NORDESTE","c":"ICC Telecom","v":7800,"d":656,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":5},{"n":"RICARDO RODRIGUES LOUZADA RINALDI LTDA","c":"ICC Telecom","v":7500,"d":222,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":1},{"n":"GPJ INFORMATICA","c":"ICC Telecom","v":7500,"d":210,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":1},{"n":"ORION SOLUCOES EM ILUMINACAO S.A EM RECUPERACAO JUDICIAL","c":"ICC Telecom","v":7458.34,"d":303,"a":"90+ dias","g":"regua","go":3,"p":1,"cnt":5},{"n":"RICK COMERCIO E LOCACAO LTDA","c":"ICC Instituto","v":7299.3,"d":47,"a":"31-60 dias","g":"transicao","go":1,"p":1,"cnt":1},{"n":"CTC LOGISTICA","c":"ICC Instituto","v":7110.28,"d":103,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":1},{"n":"LAUDUZ","c":"ICC Medical","v":7038.75,"d":281,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":3},{"n":"CBX tools comercio de máquinas e ferramentas ltda.","c":"ICC Telecom","v":7024.2,"d":356,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":3},{"n":"WUAI GLOBALHUB","c":"ICC Medical","v":7000,"d":109,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":1},{"n":"Cristallux Comercio Importação e Exportação Ltda","c":"ICC Telecom","v":6993.68,"d":417,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":1},{"n":"JR_VILAS BOAS","c":"ICC Telecom","v":6900.86,"d":331,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":1},{"n":"APP Indústria de Portas Automatizadas Ltda","c":"ICC Telecom","v":6887.9,"d":648,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":2},{"n":"CASTMED INOVACAO EM SAUDE","c":"ICC Telecom","v":6800,"d":259,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":4},{"n":"DDMAQUINAS","c":"ICC Telecom","v":6784.16,"d":583,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":2},{"n":"Blanke Comércio Ltda","c":"ICC Telecom","v":6773.9,"d":316,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":3},{"n":"Startools Ferramentas","c":"ICC Telecom","v":6690.86,"d":173,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":1},{"n":"VELTON PREMIUM","c":"ICC Instituto","v":6654.8,"d":110,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":3},{"n":"FLECHA AZUL CLASSIC BUS","c":"ICC Telecom","v":6642.58,"d":34,"a":"31-60 dias","g":"transicao","go":1,"p":1,"cnt":1},{"n":"F7 FASHION","c":"ICC Instituto","v":6596.36,"d":54,"a":"31-60 dias","g":"transicao","go":1,"p":1,"cnt":1},{"n":"SPRINGS","c":"ICC Instituto","v":6596.36,"d":54,"a":"31-60 dias","g":"transicao","go":1,"p":1,"cnt":1},{"n":"TECNEO IMPORTACAO","c":"ICC Telecom","v":6595.76,"d":74,"a":"61-90 dias","g":"negociacao","go":2,"p":1,"cnt":2},{"n":"Umi Cosméticos Importação e Exportação Ltda.","c":"ICC Telecom","v":6500,"d":327,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":4},{"n":"MAGAZINE MGP","c":"ICC Telecom","v":6500,"d":67,"a":"61-90 dias","g":"negociacao","go":2,"p":1,"cnt":1},{"n":"TECNOLATINA","c":"ICC Telecom","v":6500,"d":68,"a":"61-90 dias","g":"negociacao","go":2,"p":1,"cnt":2},{"n":"AIB ILUMINACAO LTDA","c":"ICC Telecom","v":6500,"d":599,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":1},{"n":"HYPER CLUB","c":"ICC Instituto","v":6500,"d":113,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":1},{"n":"HKTC DO BRASIL S/A","c":"ICC Telecom","v":6500,"d":116,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":2},{"n":"IROM TEC","c":"ICC Telecom","v":6300,"d":402,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":4},{"n":"D.M.P.EQUIPAMENTOS LTDA.","c":"ICC Telecom","v":6000,"d":340,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":1},{"n":"MC BRASIL","c":"ICC Telecom","v":6000,"d":64,"a":"61-90 dias","g":"negociacao","go":2,"p":1,"cnt":2},{"n":"INDBRAS ILUMINACAO","c":"ICC Instituto","v":5666.66,"d":155,"a":"90+ dias","g":"negociacao","go":2,"p":1,"cnt":4},{"n":"SALUS BIOMEDICAL","c":"ICC Medical","v":5006.4,"d":133,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":5},{"n":"J.SHAN COMERCIO EXTERIOR LTDA","c":"ICC Instituto","v":5000,"d":94,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"ROBERT BOSCH LIMITADA","c":"ICC Instituto","v":5000,"d":241,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"JCUBO REPRESENTACOES","c":"ICC Telecom","v":5000,"d":331,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"I.T.R.S.","c":"ICC Telecom","v":5000,"d":296,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"PRAXIS COMERCIO E REPRESENTACOES COMERCIAIS LTDA","c":"ICC Medical","v":4900,"d":4,"a":"1-30 dias","g":"caixa","go":0,"p":0,"cnt":1},{"n":"MIKATOS INDUSTRIA, COMERCIO, SERVICOS E IMPORTACAO LTDA","c":"ICC Medical","v":4692.5,"d":50,"a":"31-60 dias","g":"transicao","go":1,"p":0,"cnt":1},{"n":"L&amp;amp;G IMPORTACOES","c":"ICC Instituto","v":4650,"d":169,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"BH IMPORTS_RO","c":"ICC Telecom","v":4619.28,"d":572,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":2},{"n":"Conecta comércio e importação de lâmpadas Ltda.","c":"ICC Telecom","v":4616.14,"d":356,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":2},{"n":"TOP 3","c":"ICC Instituto","v":4504.2,"d":159,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":2},{"n":"FLUCTUS GROUP","c":"ICC Telecom","v":4500,"d":95,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"AQUALLY BANHEIRAS","c":"ICC Instituto","v":4450,"d":568,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":2},{"n":"TRADEX MED","c":"ICC Medical","v":4379.68,"d":158,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"REDE NORDESTE SEGURANCA","c":"ICC Instituto","v":4283.54,"d":831,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":2},{"n":"INTEL LUX LIGHTING TECHNOLOGY DO BRASIL LTDA","c":"ICC Instituto","v":4200,"d":812,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":2},{"n":"BIOCLEAN COMERCIAL","c":"ICC Telecom","v":4100,"d":172,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"ALPHA","c":"ICC Telecom","v":4000,"d":402,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"MULTI ATACADO E VAREJO DE UTILIDADES DO LAR LTDA","c":"ICC Telecom","v":4000,"d":328,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":2},{"n":"MAJO COMERCIO E DISTRIBUICAO LTDA","c":"ICC Telecom","v":3750,"d":5,"a":"1-30 dias","g":"caixa","go":0,"p":0,"cnt":1},{"n":"TRANE TECHNOLOGIES INDUSTRIA, COMERCIO E SERVICOS DE AR-CONDICIONADO LTDA","c":"ICC Telecom","v":3526.87,"d":36,"a":"31-60 dias","g":"transicao","go":1,"p":0,"cnt":1},{"n":"I.M.G. ACO INOXIDAVEL LTDA","c":"ICC Telecom","v":3500,"d":36,"a":"31-60 dias","g":"transicao","go":1,"p":0,"cnt":2},{"n":"WALDMAN COMERCIO IMPORTACAO E EXPORTACAO LTDA","c":"ICC Telecom","v":3500,"d":225,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"PADTEC S/A","c":"ICC Instituto","v":3500,"d":297,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"LIMA VIDEO MONITORAMENTO","c":"ICC Telecom","v":3500,"d":724,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"BISCOITE","c":"ICC Telecom","v":3292.5,"d":215,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"JR QUALIDADE","c":"ICC Telecom","v":3250,"d":11,"a":"1-30 dias","g":"caixa","go":0,"p":0,"cnt":1},{"n":"CRG FESTAS","c":"ICC Telecom","v":3250,"d":15,"a":"1-30 dias","g":"caixa","go":0,"p":0,"cnt":1},{"n":"JR COMERCIO IMPORTACAO E EXPORTACAO LTDA","c":"ICC Telecom","v":3145.17,"d":656,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"CASTMED INOVACAO EM SAUDE","c":"ICC Medical","v":3003.2,"d":276,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"INBRA-TECNOLOGIA E DEFESA INDUSTRIA E COMERCIO LTDA.","c":"ICC Instituto","v":3000,"d":216,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"CENTRAL COIFAS COMERCIAL LTDA","c":"ICC Telecom","v":3000,"d":95,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"COMERCIAL B.L. FESTO","c":"ICC Telecom","v":2900,"d":127,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"MULLET","c":"ICC Medical","v":2812.5,"d":5,"a":"1-30 dias","g":"caixa","go":0,"p":0,"cnt":1},{"n":"SKYER","c":"ICC Telecom","v":2726.4,"d":11,"a":"1-30 dias","g":"caixa","go":0,"p":0,"cnt":1},{"n":"PROJETOS OPTICOS COMERCIAL LTDA","c":"ICC Medical","v":2666.67,"d":3,"a":"1-30 dias","g":"caixa","go":0,"p":0,"cnt":1},{"n":"T&amp;amp;E COMERCIO DE IMPORTACAO E EXPORTACAO LTDA","c":"ICC Telecom","v":2650,"d":15,"a":"1-30 dias","g":"caixa","go":0,"p":0,"cnt":1},{"n":"GLAGIO DO BRASIL COMERCIO DE EQUIPAMENTOS DE DEFESA E SAUDE LTDA.","c":"ICC Telecom","v":2566.66,"d":282,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"MED LIGHT","c":"ICC Medical","v":2500,"d":7,"a":"1-30 dias","g":"caixa","go":0,"p":0,"cnt":1},{"n":"FUJIOKA","c":"ICC Telecom","v":2500,"d":225,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"Higiban ind. com imp. e exp. de metais ltda.","c":"ICC Telecom","v":2279.37,"d":227,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"ANDERSON FONSECA NUNES LTDA","c":"ICC Telecom","v":2270.8,"d":253,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"ONEBLOCK IMPORTACAO E EXPORTACAO","c":"ICC Telecom","v":2248.26,"d":1,"a":"1-30 dias","g":"caixa","go":0,"p":0,"cnt":1},{"n":"HAYAMAX ASA-BRANCA","c":"ICC Instituto","v":2200,"d":55,"a":"31-60 dias","g":"transicao","go":1,"p":0,"cnt":1},{"n":"G R DE ALMEIDA LTDA","c":"ICC Instituto","v":2100,"d":90,"a":"61-90 dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"PRIME","c":"ICC Medical","v":2100,"d":4,"a":"1-30 dias","g":"caixa","go":0,"p":0,"cnt":1},{"n":"Getscale Sistemas Embarcados LTDA","c":"ICC Telecom","v":2000,"d":326,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"HPCORP COBRANCAS","c":"ICC Telecom","v":2000,"d":134,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":2},{"n":"DANILO MIRANDA RODRIGUES","c":"ICC Telecom","v":2000,"d":303,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"HIDRO FIBER DO BRASIL","c":"ICC Telecom","v":1875,"d":660,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"SFK PRODUTOS DE BELEZA, BIJUTERIAS E ACESSORIOS LTDA","c":"ICC Medical","v":1833.33,"d":5,"a":"1-30 dias","g":"caixa","go":0,"p":0,"cnt":1},{"n":"Bailon Indústria e Comércio de Máquinas Ltda.","c":"ICC Telecom","v":1700,"d":612,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"DENDRON - ME","c":"ICC Telecom","v":1650,"d":346,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"TEODORA CECILIA FLORIDO","c":"ICC Instituto","v":1645.38,"d":605,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"BIZERBA DO BRASIL LTDA","c":"ICC Telecom","v":1600,"d":331,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"R MOTORS","c":"ICC Telecom","v":1600,"d":127,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"TAMTEX DO BRASIL LTDA","c":"ICC Instituto","v":1600,"d":225,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"GPJ INFORMATICA","c":"ICC Instituto","v":1500,"d":158,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"IMUNA FABRICACAO, COMERCIO E SERVICOS DE MATERIAIS BALISTICOS LTDA.","c":"ICC Telecom","v":1450,"d":472,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"ALLTEC MEDICAMENTOS","c":"ICC Medical","v":1407.75,"d":76,"a":"61-90 dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"NGD.COM","c":"ICC Instituto","v":1400,"d":327,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":2},{"n":"STAR ILUMINACAO COMPUTADORIZADA LTDA","c":"ICC Telecom","v":1250,"d":4,"a":"1-30 dias","g":"caixa","go":0,"p":0,"cnt":1},{"n":"LUMINA IMPORTACAO E EXPORTACAO","c":"ICC Instituto","v":1200,"d":370,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"OL LIGHTING","c":"ICC Telecom","v":1200,"d":4,"a":"1-30 dias","g":"caixa","go":0,"p":0,"cnt":1},{"n":"INTER ASIA GLOBAL PARTNERS","c":"ICC Telecom","v":1100,"d":5,"a":"1-30 dias","g":"caixa","go":0,"p":0,"cnt":1},{"n":"E-PLAY","c":"ICC Telecom","v":1000,"d":137,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"RCG - SP","c":"ICC Instituto","v":720.83,"d":768,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"MAJO COMERCIO E DISTRIBUICAO LTDA","c":"ICC Instituto","v":400,"d":5,"a":"1-30 dias","g":"caixa","go":0,"p":0,"cnt":1},{"n":"EASY SERVICOS EM CERTIFICACOES LTDA","c":"ICC Instituto","v":300,"d":298,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":2},{"n":"SUNNYVALE COMERCIO E REPRESENTACOES LTDA","c":"ICC Instituto","v":120,"d":739,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"LEESINEO COMERCIO E IMPORTACAO LTDA","c":"ICC Instituto","v":102,"d":436,"a":"90+ dias","g":"negociacao","go":2,"p":0,"cnt":1},{"n":"BRADESCO EST UNIF","c":"ICC Telecom","v":0.09,"d":39,"a":"31-60 dias","g":"transicao","go":1,"p":0,"cnt":2},{"n":"BRADESCO EST UNIF","c":"ICC Instituto","v":0.02,"d":76,"a":"61-90 dias","g":"negociacao","go":2,"p":0,"cnt":1}];
+
+var sortCol=-1, sortDir=1;
+function sortPrio(col){
+  if(sortCol===col) sortDir*=-1; else { sortCol=col; sortDir=1; }
+  document.querySelectorAll('.prio-table thead th').forEach(function(th,i){
+    th.classList.remove('sort-asc','sort-desc');
+    if(i===col) th.classList.add(sortDir===1?'sort-asc':'sort-desc');
+  });
+  renderPrio();
+}
+
+function renderPrio(){
+  var sorted=D.slice().sort(function(a,b){
+    var va,vb;
+    if(sortCol===0){va=a.n;vb=b.n;}
+    else if(sortCol===1){va=a.c;vb=b.c;}
+    else if(sortCol===2){va=a.v;vb=b.v;}
+    else if(sortCol===3){va=a.d;vb=b.d;}
+    else if(sortCol===4){va=a.a;vb=b.a;}
+    else if(sortCol===5){va=a.go;vb=b.go;}
+    else{va=a.go*1e12-a.v;vb=b.go*1e12-b.v;}
+    if(va<vb)return -1*sortDir;if(va>vb)return 1*sortDir;return 0;
+  });
+  var html=''; var lastG='';
+  sorted.forEach(function(r){
+    if(r.g!==lastG){
+      var lbl={'caixa':'&#x1F4B5; CAIXA RAPIDO (1-30 dias)','transicao':'&#x23F0; TRANSICAO (31-60 dias)','negociacao':'&#x1F91D; NEGOCIACAO (61-90+ dias)','regua':'&#x2696;&#xFE0F; REGUA / JURIDICO'}[r.g]||r.g;
+      html+='<tr class="group-sep"><td colspan="7">'+lbl+'</td></tr>';
+      lastG=r.g;
+    }
+    var rowCls=r.p?'pareto-row':'';
+    var star=r.p?'<span class="pareto-star">&#x2605;</span>':'';
+    var bval=r.v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+    var gcls={'caixa':'caixa','transicao':'transicao','negociacao':'negociacao','regua':'regua'}[r.g]||'gray';
+    html+='<tr class="'+rowCls+'"><td>'+r.n+star+'</td><td>'+r.c+'</td><td style="text-align:right;font-weight:700;color:#1e3a5f">'+bval+'</td><td style="text-align:center;font-weight:700">'+r.d+'d</td><td style="text-align:center">'+r.a+'</td><td style="text-align:center"><span class="group-badge '+gcls+'">'+r.g+'</span></td><td style="text-align:center;color:#888">'+r.cnt+'</td></tr>';
+  });
+  document.getElementById('prioBody').innerHTML=html;
+}
+renderPrio();
+</script>
 </body>
 </html>
