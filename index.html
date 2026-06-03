@@ -202,28 +202,28 @@ details[open].curr-hist summary::before { transform: rotate(90deg); }
     <h1>&#x1F4CA; Relatorio Integrado &mdash; ICC Grupo</h1>
     <p>Inadimplencia &middot; Fluxo de Caixa</p>
   </div>
-  <div class="header-right">Ultima atualizacao<br><strong>03/06/2026, 15:37:49</strong></div>
+  <div class="header-right">Ultima atualizacao<br><strong>03/06/2026, 15:46:44</strong></div>
 </div>
 
 <div class="main-nav">
-  <button class="main-tab-btn active" data-section="inad" onclick="showMainSection('inad')">&#x1F4CA; Inadimplencia</button>
+  <button class="main-tab-btn active" data-section="home" onclick="showMainSection('home')">&#x1F3E0; Home</button>
+  <button class="main-tab-btn" data-section="inad" onclick="showMainSection('inad')">&#x1F4CA; Inadimplencia</button>
   <button class="main-tab-btn" data-section="fluxo" onclick="showMainSection('fluxo')">&#x1F4B0; Fluxo de Caixa</button>
 </div>
 
-<!-- SECAO: INADIMPLENCIA -->
-<div id="main-inad" class="main-section active">
-
-  <div style="padding:20px 24px 0">
-    <div class="company-header" style="background:linear-gradient(135deg,#0d1b2a,#1e3a5f);margin-bottom:16px">
+<!-- SECAO: HOME - RESUMO EXECUTIVO -->
+<div id="main-home" class="main-section active">
+  <div style="padding:24px">
+    <div class="company-header" style="background:linear-gradient(135deg,#0d1b2a,#1e3a5f);margin-bottom:24px">
       <h2>Resumo Executivo &mdash; ICC Grupo</h2>
       <p>Inadimplencia e Fluxo de Caixa &mdash; 03/06/2026</p>
     </div>
 
-    <div style="margin-bottom:8px;font-size:12px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:1px;padding:0 4px">Inadimplencia</div>
-    <div class="cards-grid" style="margin-bottom:20px">
+    <div style="margin-bottom:10px;font-size:12px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:1px">&#x1F4CA; Inadimplencia</div>
+    <div class="cards-grid" style="margin-bottom:28px">
       <div class="card">
         <div class="card-value">R$ 914.802,86</div>
-        <div class="card-label">Total Consolidado em Aberto</div>
+        <div class="card-label">Total em Aberto</div>
         <div class="card-trends">
           <div class="trend-item"><span class="trend-period">Dia</span><span class="trend-val flat">0%</span></div>
           <div class="trend-item"><span class="trend-period">Sem</span><span class="trend-val good">&darr; -7.4%</span></div>
@@ -263,14 +263,26 @@ details[open].curr-hist summary::before { transform: rotate(90deg); }
       </div>
     </div>
 
-    <div style="margin-bottom:8px;font-size:12px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:1px;padding:0 4px">Fluxo de Caixa <span style="font-size:10px;color:#aaa;font-weight:400">(dados: 02/06/2026 17:50:12)</span></div>
-    <div class="cards-grid" style="margin-bottom:20px">
+    <div style="margin-bottom:10px;font-size:12px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:1px">&#x1F4B0; Fluxo de Caixa <span style="font-size:10px;color:#aaa;font-weight:400;text-transform:none">(dados: 02/06/2026 17:50:12)</span></div>
+    <div class="cards-grid" style="margin-bottom:28px">
         <div class="card"><div class="card-value">R$ 253.672,09</div><div class="card-label">Saldo em Banco</div></div>
         <div class="card"><div class="card-value">R$ 407.725,07</div><div class="card-label">A Receber (projetado)</div></div>
         <div class="card orange"><div class="card-value">R$ 893.940,11</div><div class="card-label">A Pagar (projetado)</div></div>
         <div class="card red"><div class="card-value red">R$ -505.009,54</div><div class="card-label">Saldo Projetado</div></div>
     </div>
+
+    <div style="margin-bottom:10px;font-size:12px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:1px">&#x1F3AF; Inadimplencia por Empresa</div>
+    <div class="section" style="margin-bottom:0">
+      <div class="company-breakdown"><div class='company-row'><div class='company-dot' style='background:#2196F3'></div><div class='company-info'><strong>ICC Instituto</strong><span>70 titulos &nbsp;|&nbsp; 41 clientes</span></div><div class='pct-bar-wrap'><div class='pct-bar-bg'><div class='pct-bar' style='width:32.3%;background:#2196F3'></div></div></div><div class='company-value'><strong>R$ 295.887,19</strong><span>32.3% do total</span></div></div>
+<div class='company-row'><div class='company-dot' style='background:#00BCD4'></div><div class='company-info'><strong>ICC Telecom</strong><span>178 titulos &nbsp;|&nbsp; 77 clientes</span></div><div class='pct-bar-wrap'><div class='pct-bar-bg'><div class='pct-bar' style='width:60.6%;background:#00BCD4'></div></div></div><div class='company-value'><strong>R$ 554.683,68</strong><span>60.6% do total</span></div></div>
+<div class='company-row'><div class='company-dot' style='background:#4CAF50'></div><div class='company-info'><strong>ICC Medical</strong><span>20 titulos &nbsp;|&nbsp; 13 clientes</span></div><div class='pct-bar-wrap'><div class='pct-bar-bg'><div class='pct-bar' style='width:7%;background:#4CAF50'></div></div></div><div class='company-value'><strong>R$ 64.231,99</strong><span>7% do total</span></div></div>
+</div>
+    </div>
   </div>
+</div>
+
+<!-- SECAO: INADIMPLENCIA -->
+<div id="main-inad" class="main-section">
 
   <div class="tabs">
     <button class="tab-btn active" data-tab="consolidado" onclick="showTab('consolidado')">&#x1F4CA; Consolidado</button>
