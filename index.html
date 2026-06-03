@@ -13,10 +13,14 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 .header-left h1 { font-size: 20px; font-weight: 700; }
 .header-left p { font-size: 12px; opacity: 0.65; margin-top: 3px; }
 .header-right { text-align: right; font-size: 12px; opacity: 0.75; line-height: 1.6; }
-.main-nav{background:white;border-bottom:3px solid #e8e8e8;padding:0 20px;display:flex;gap:4px;box-shadow:0 2px 8px rgba(0,0,0,0.08);}
-.main-tab-btn{padding:16px 32px;border:none;background:none;cursor:pointer;font-size:15px;font-weight:600;color:#888;border-bottom:4px solid transparent;margin-bottom:-3px;transition:all 0.2s;white-space:nowrap;}
-.main-tab-btn:hover{color:#1e3a5f;background:#f8f9fa;}
-.main-tab-btn.active{color:#1e3a5f;border-bottom-color:#1e3a5f;font-weight:800;background:#f0f4ff;}
+.main-nav{background:linear-gradient(180deg,#0f2138 0%,#0d1b2a 100%);padding:0 32px;display:flex;align-items:stretch;gap:0;box-shadow:0 4px 24px rgba(0,0,0,0.22);}
+.main-tab-btn{position:relative;padding:0 38px;height:52px;border:none;background:none;cursor:pointer;font-size:10.5px;font-weight:700;letter-spacing:2.2px;text-transform:uppercase;color:rgba(255,255,255,0.42);border-bottom:2px solid transparent;margin-bottom:0;transition:all 0.25s ease;white-space:nowrap;display:flex;align-items:center;gap:8px;}
+.main-tab-btn::after{content:'';position:absolute;right:0;top:28%;height:44%;width:1px;background:rgba(255,255,255,0.08);}
+.main-tab-btn:last-child::after{display:none;}
+.main-tab-btn:hover{color:rgba(255,255,255,0.82);background:rgba(255,255,255,0.04);}
+.main-tab-btn.active{color:#ffffff;border-bottom-color:#c9a84c;background:rgba(201,168,76,0.07);letter-spacing:2.4px;}
+.main-tab-btn .nav-dot{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:0.6;flex-shrink:0;}
+.main-tab-btn.active .nav-dot{background:#c9a84c;opacity:1;box-shadow:0 0 6px #c9a84c88;}
 .main-section{display:none;}
 .main-section.active{display:block;}
 .tabs { background: white; border-bottom: 2px solid #e8e8e8; padding: 0 20px; display: flex; gap: 2px; overflow-x: auto; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
@@ -202,13 +206,13 @@ details[open].curr-hist summary::before { transform: rotate(90deg); }
     <h1>&#x1F4CA; Relatorio Integrado &mdash; ICC Grupo</h1>
     <p>Inadimplencia &middot; Fluxo de Caixa</p>
   </div>
-  <div class="header-right">Ultima atualizacao<br><strong>03/06/2026, 17:57:02</strong></div>
+  <div class="header-right">Ultima atualizacao<br><strong>03/06/2026, 18:00:10</strong></div>
 </div>
 
 <div class="main-nav">
-  <button class="main-tab-btn active" data-section="home" onclick="showMainSection('home')">&#x1F3E0; Home</button>
-  <button class="main-tab-btn" data-section="inad" onclick="showMainSection('inad')">&#x1F4CA; Inadimplencia</button>
-  <button class="main-tab-btn" data-section="fluxo" onclick="showMainSection('fluxo')">&#x1F4B0; Fluxo de Caixa</button>
+  <button class="main-tab-btn active" data-section="home" onclick="showMainSection('home')"><span class="nav-dot"></span>Home</button>
+  <button class="main-tab-btn" data-section="inad" onclick="showMainSection('inad')"><span class="nav-dot"></span>Inadimplencia</button>
+  <button class="main-tab-btn" data-section="fluxo" onclick="showMainSection('fluxo')"><span class="nav-dot"></span>Fluxo de Caixa</button>
 </div>
 
 <!-- SECAO: HOME - RESUMO EXECUTIVO -->
@@ -225,7 +229,7 @@ details[open].curr-hist summary::before { transform: rotate(90deg); }
         <div class="card-value">R$ 882.636,18</div>
         <div class="card-label">Total em Aberto</div>
         <div class="card-trends">
-          <div class="trend-item"><span class="trend-period">Dia</span><span class="trend-val good">&darr; -3.5%</span></div>
+          <div class="trend-item"><span class="trend-period">Dia</span><span class="trend-val flat">0%</span></div>
           <div class="trend-item"><span class="trend-period">Sem</span><span class="trend-val good">&darr; -10.6%</span></div>
           <div class="trend-item"><span class="trend-period">Mes</span><span class="trend-val good">&darr; -10.6%</span></div>
           <div class="trend-item"><span class="trend-period">Tri</span><span class="trend-val good">&darr; -10.6%</span></div>
@@ -235,7 +239,7 @@ details[open].curr-hist summary::before { transform: rotate(90deg); }
         <div class="card-value">130</div>
         <div class="card-label">Clientes Inadimplentes</div>
         <div class="card-trends">
-          <div class="trend-item"><span class="trend-period">Dia</span><span class="trend-val good">&darr; -0.8%</span></div>
+          <div class="trend-item"><span class="trend-period">Dia</span><span class="trend-val flat">0%</span></div>
           <div class="trend-item"><span class="trend-period">Sem</span><span class="trend-val good">&darr; -4.4%</span></div>
           <div class="trend-item"><span class="trend-period">Mes</span><span class="trend-val flat">&mdash;</span></div>
           <div class="trend-item"><span class="trend-period">Tri</span><span class="trend-val flat">&mdash;</span></div>
@@ -245,7 +249,7 @@ details[open].curr-hist summary::before { transform: rotate(90deg); }
         <div class="card-value">266</div>
         <div class="card-label">Titulos em Aberto</div>
         <div class="card-trends">
-          <div class="trend-item"><span class="trend-period">Dia</span><span class="trend-val good">&darr; -0.7%</span></div>
+          <div class="trend-item"><span class="trend-period">Dia</span><span class="trend-val flat">0%</span></div>
           <div class="trend-item"><span class="trend-period">Sem</span><span class="trend-val good">&darr; -5.3%</span></div>
           <div class="trend-item"><span class="trend-period">Mes</span><span class="trend-val flat">&mdash;</span></div>
           <div class="trend-item"><span class="trend-period">Tri</span><span class="trend-val flat">&mdash;</span></div>
@@ -336,7 +340,7 @@ details[open].curr-hist summary::before { transform: rotate(90deg); }
         <div class="card-value">R$ 882.636,18</div>
         <div class="card-label">Total Consolidado em Aberto</div>
         <div class="card-trends">
-          <div class="trend-item"><span class="trend-period">Dia</span><span class="trend-val good">&darr; -3.5%</span></div>
+          <div class="trend-item"><span class="trend-period">Dia</span><span class="trend-val flat">0%</span></div>
           <div class="trend-item"><span class="trend-period">Sem</span><span class="trend-val good">&darr; -10.6%</span></div>
           <div class="trend-item"><span class="trend-period">Mes</span><span class="trend-val good">&darr; -10.6%</span></div>
           <div class="trend-item"><span class="trend-period">Tri</span><span class="trend-val good">&darr; -10.6%</span></div>
@@ -346,7 +350,7 @@ details[open].curr-hist summary::before { transform: rotate(90deg); }
         <div class="card-value">130</div>
         <div class="card-label">Clientes Inadimplentes</div>
         <div class="card-trends">
-          <div class="trend-item"><span class="trend-period">Dia</span><span class="trend-val good">&darr; -0.8%</span></div>
+          <div class="trend-item"><span class="trend-period">Dia</span><span class="trend-val flat">0%</span></div>
           <div class="trend-item"><span class="trend-period">Sem</span><span class="trend-val good">&darr; -4.4%</span></div>
           <div class="trend-item"><span class="trend-period">Mes</span><span class="trend-val flat">&mdash;</span></div>
           <div class="trend-item"><span class="trend-period">Tri</span><span class="trend-val flat">&mdash;</span></div>
@@ -356,7 +360,7 @@ details[open].curr-hist summary::before { transform: rotate(90deg); }
         <div class="card-value">266</div>
         <div class="card-label">Titulos em Aberto</div>
         <div class="card-trends">
-          <div class="trend-item"><span class="trend-period">Dia</span><span class="trend-val good">&darr; -0.7%</span></div>
+          <div class="trend-item"><span class="trend-period">Dia</span><span class="trend-val flat">0%</span></div>
           <div class="trend-item"><span class="trend-period">Sem</span><span class="trend-val good">&darr; -5.3%</span></div>
           <div class="trend-item"><span class="trend-period">Mes</span><span class="trend-val flat">&mdash;</span></div>
           <div class="trend-item"><span class="trend-period">Tri</span><span class="trend-val flat">&mdash;</span></div>
