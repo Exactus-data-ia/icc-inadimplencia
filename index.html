@@ -34,6 +34,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 .card.red { border-top-color: #e53935; }
 .card.orange { border-top-color: #fb8c00; }
 .card.green { border-top-color: #43a047; }
+.card.orange-soft { border-top-color: #fb8c00; background: #fff8f0; }
 .card-value { font-size: 26px; font-weight: 800; color: #1e3a5f; margin-bottom: 5px; line-height: 1.1; }
 .card.red .card-value { color: #c62828; }
 .card.orange .card-value { color: #e65100; }
@@ -41,6 +42,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 .card-value.green { color: #2e7d32; }
 .card-value.red { color: #c62828; }
 .card-label { font-size: 12px; color: #888; font-weight: 500; }
+.section-label-atraso { font-size: 11px; font-weight: 700; color: #e65100; text-transform: uppercase; letter-spacing: 1.2px; margin: 18px 0 8px; padding: 6px 12px; background: #fff3e0; border-left: 3px solid #fb8c00; border-radius: 0 4px 4px 0; display: inline-block; }
+.section-label-inad { font-size: 11px; font-weight: 700; color: #c62828; text-transform: uppercase; letter-spacing: 1.2px; margin: 18px 0 8px; padding: 6px 12px; background: #ffebee; border-left: 3px solid #e53935; border-radius: 0 4px 4px 0; display: inline-block; }
 .card-trends { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; margin-top: 10px; padding-top: 8px; border-top: 1px solid #f0f0f0; }
 .trend-item { display: flex; flex-direction: column; align-items: center; gap: 2px; }
 .trend-period { font-size: 9px; color: #bbb; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; }
@@ -202,7 +205,7 @@ details[open].curr-hist summary::before { transform: rotate(90deg); }
     <h1>&#x1F4CA; Relatorio de Inadimplencia &mdash; ICC Grupo</h1>
     <p>Inadimplencia &mdash; ICC Instituto &middot; Telecom &middot; Medical</p>
   </div>
-  <div class="header-right">Ultima atualizacao<br><strong>15/06/2026, 09:09:21</strong></div>
+  <div class="header-right">Ultima atualizacao<br><strong>15/06/2026, 09:20:50</strong></div>
 </div>
 
 <!-- SECAO: INADIMPLENCIA -->
@@ -222,32 +225,49 @@ details[open].curr-hist summary::before { transform: rotate(90deg); }
       <h2>Resumo Executivo Consolidado &mdash; ICC Grupo</h2>
       <p>Visao Gerencial de Inadimplencia &mdash; 15/06/2026</p>
     </div>
-    <div class="cards-grid">
-      <div class="card">
-        <div class="card-value">R$ 880.170,96</div>
-        <div class="card-label">Total Consolidado em Aberto</div>
+    <div class="section-label-atraso">&#x23F3; CONTAS A RECEBER EM ATRASO &mdash; 1 a 30 dias</div>
+    <div class="cards-grid" style="margin-bottom:20px">
+      <div class="card orange-soft">
+        <div class="card-value" style="color:#e65100">R$ 169.941,16</div>
+        <div class="card-label">Total em Atraso (1-30 dias)</div>
+      </div>
+      <div class="card orange-soft">
+        <div class="card-value" style="color:#e65100">17</div>
+        <div class="card-label">Clientes em Atraso</div>
+      </div>
+      <div class="card orange-soft">
+        <div class="card-value" style="color:#e65100">34</div>
+        <div class="card-label">Titulos em Atraso</div>
+      </div>
+    </div>
+
+    <div class="section-label-inad">&#x1F6A8; INADIMPLENTE &mdash; 31 dias ou mais</div>
+    <div class="cards-grid" style="margin-bottom:20px">
+      <div class="card red">
+        <div class="card-value">R$ 710.229,80</div>
+        <div class="card-label">Total Inadimplente (31+ dias)</div>
         <div class="card-trends">
-          <div class="trend-item"><span class="trend-period">Dia</span><span class="trend-val bad">&uarr; +3.1%</span></div>
+          <div class="trend-item"><span class="trend-period">Dia</span><span class="trend-val flat">0%</span></div>
           <div class="trend-item"><span class="trend-period">Sem</span><span class="trend-val bad">&uarr; +0.4%</span></div>
           <div class="trend-item"><span class="trend-period">Mes</span><span class="trend-val good">&darr; -10.9%</span></div>
           <div class="trend-item"><span class="trend-period">Tri</span><span class="trend-val good">&darr; -10.9%</span></div>
         </div>
       </div>
-      <div class="card">
-        <div class="card-value">124</div>
+      <div class="card red">
+        <div class="card-value">107</div>
         <div class="card-label">Clientes Inadimplentes</div>
         <div class="card-trends">
-          <div class="trend-item"><span class="trend-period">Dia</span><span class="trend-val good">&darr; -0.8%</span></div>
+          <div class="trend-item"><span class="trend-period">Dia</span><span class="trend-val flat">0%</span></div>
           <div class="trend-item"><span class="trend-period">Sem</span><span class="trend-val good">&darr; -7.5%</span></div>
           <div class="trend-item"><span class="trend-period">Mes</span><span class="trend-val flat">&mdash;</span></div>
           <div class="trend-item"><span class="trend-period">Tri</span><span class="trend-val flat">&mdash;</span></div>
         </div>
       </div>
-      <div class="card">
-        <div class="card-value">256</div>
-        <div class="card-label">Titulos em Aberto</div>
+      <div class="card red">
+        <div class="card-value">222</div>
+        <div class="card-label">Titulos Inadimplentes</div>
         <div class="card-trends">
-          <div class="trend-item"><span class="trend-period">Dia</span><span class="trend-val bad">&uarr; +1.6%</span></div>
+          <div class="trend-item"><span class="trend-period">Dia</span><span class="trend-val flat">0%</span></div>
           <div class="trend-item"><span class="trend-period">Sem</span><span class="trend-val good">&darr; -2.3%</span></div>
           <div class="trend-item"><span class="trend-period">Mes</span><span class="trend-val flat">&mdash;</span></div>
           <div class="trend-item"><span class="trend-period">Tri</span><span class="trend-val flat">&mdash;</span></div>
@@ -402,8 +422,17 @@ details[open].curr-hist summary::before { transform: rotate(90deg); }
     <h2>ICC Instituto</h2>
     <p>Relatorio de Inadimplencia &middot; Contas a Receber &middot; Contas a Pagar &mdash; 15/06/2026</p>
   </div>
-  <div class="cards-grid">
-    <div class="card red"><div class="card-value">R$ 337.880,30</div><div class="card-label">Inadimplente (vencido)</div></div>
+  <div class="section-label-atraso" style="margin-top:0">&#x23F3; CONTAS A RECEBER EM ATRASO &mdash; 1 a 30 dias</div>
+  <div class="cards-grid" style="margin-bottom:20px">
+    <div class="card orange-soft"><div class="card-value" style="color:#e65100">R$ 99.126,44</div><div class="card-label">Total em Atraso (1-30 dias)</div></div>
+    <div class="card orange-soft"><div class="card-value" style="color:#e65100">6</div><div class="card-label">Clientes em Atraso</div></div>
+    <div class="card orange-soft"><div class="card-value" style="color:#e65100">8</div><div class="card-label">Titulos em Atraso</div></div>
+  </div>
+  <div class="section-label-inad">&#x1F6A8; INADIMPLENTE &mdash; 31 dias ou mais</div>
+  <div class="cards-grid" style="margin-bottom:20px">
+    <div class="card red"><div class="card-value">R$ 238.753,86</div><div class="card-label">Total Inadimplente (31+ dias)</div></div>
+    <div class="card red"><div class="card-value">37</div><div class="card-label">Clientes Inadimplentes</div></div>
+    <div class="card red"><div class="card-value">63</div><div class="card-label">Titulos Inadimplentes</div></div>
     <div class="card green"><div class="card-value" style="color:#2e7d32">R$ 337.880,30</div><div class="card-label">A Receber (pendente)</div></div>
     <div class="card orange"><div class="card-value" style="color:#c62828">R$ 539.196,73</div><div class="card-label">A Pagar (pendente)</div></div>
   </div>
@@ -475,8 +504,17 @@ details[open].curr-hist summary::before { transform: rotate(90deg); }
     <h2>ICC Telecom</h2>
     <p>Relatorio de Inadimplencia &middot; Contas a Receber &middot; Contas a Pagar &mdash; 15/06/2026</p>
   </div>
-  <div class="cards-grid">
-    <div class="card red"><div class="card-value">R$ 481.801,03</div><div class="card-label">Inadimplente (vencido)</div></div>
+  <div class="section-label-atraso" style="margin-top:0">&#x23F3; CONTAS A RECEBER EM ATRASO &mdash; 1 a 30 dias</div>
+  <div class="cards-grid" style="margin-bottom:20px">
+    <div class="card orange-soft"><div class="card-value" style="color:#e65100">R$ 61.900,94</div><div class="card-label">Total em Atraso (1-30 dias)</div></div>
+    <div class="card orange-soft"><div class="card-value" style="color:#e65100">8</div><div class="card-label">Clientes em Atraso</div></div>
+    <div class="card orange-soft"><div class="card-value" style="color:#e65100">22</div><div class="card-label">Titulos em Atraso</div></div>
+  </div>
+  <div class="section-label-inad">&#x1F6A8; INADIMPLENTE &mdash; 31 dias ou mais</div>
+  <div class="cards-grid" style="margin-bottom:20px">
+    <div class="card red"><div class="card-value">R$ 419.900,09</div><div class="card-label">Total Inadimplente (31+ dias)</div></div>
+    <div class="card red"><div class="card-value">62</div><div class="card-label">Clientes Inadimplentes</div></div>
+    <div class="card red"><div class="card-value">146</div><div class="card-label">Titulos Inadimplentes</div></div>
     <div class="card green"><div class="card-value" style="color:#2e7d32">R$ 481.801,03</div><div class="card-label">A Receber (pendente)</div></div>
     <div class="card orange"><div class="card-value" style="color:#c62828">R$ 123.497,36</div><div class="card-label">A Pagar (pendente)</div></div>
   </div>
@@ -549,8 +587,17 @@ details[open].curr-hist summary::before { transform: rotate(90deg); }
     <h2>ICC Medical</h2>
     <p>Relatorio de Inadimplencia &middot; Contas a Receber &middot; Contas a Pagar &mdash; 15/06/2026</p>
   </div>
-  <div class="cards-grid">
-    <div class="card red"><div class="card-value">R$ 60.489,63</div><div class="card-label">Inadimplente (vencido)</div></div>
+  <div class="section-label-atraso" style="margin-top:0">&#x23F3; CONTAS A RECEBER EM ATRASO &mdash; 1 a 30 dias</div>
+  <div class="cards-grid" style="margin-bottom:20px">
+    <div class="card orange-soft"><div class="card-value" style="color:#e65100">R$ 8.913,78</div><div class="card-label">Total em Atraso (1-30 dias)</div></div>
+    <div class="card orange-soft"><div class="card-value" style="color:#e65100">3</div><div class="card-label">Clientes em Atraso</div></div>
+    <div class="card orange-soft"><div class="card-value" style="color:#e65100">4</div><div class="card-label">Titulos em Atraso</div></div>
+  </div>
+  <div class="section-label-inad">&#x1F6A8; INADIMPLENTE &mdash; 31 dias ou mais</div>
+  <div class="cards-grid" style="margin-bottom:20px">
+    <div class="card red"><div class="card-value">R$ 51.575,85</div><div class="card-label">Total Inadimplente (31+ dias)</div></div>
+    <div class="card red"><div class="card-value">8</div><div class="card-label">Clientes Inadimplentes</div></div>
+    <div class="card red"><div class="card-value">13</div><div class="card-label">Titulos Inadimplentes</div></div>
     <div class="card green"><div class="card-value" style="color:#2e7d32">R$ 60.489,63</div><div class="card-label">A Receber (pendente)</div></div>
     <div class="card orange"><div class="card-value" style="color:#c62828">R$ 0,00</div><div class="card-label">A Pagar (pendente)</div></div>
   </div>
