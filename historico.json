@@ -1,22 +1,37 @@
 ﻿[
     {
-        "data":  "2026-08-20",
-        "inad31":  588504.97,
-        "atraso":  105625.83,
-        "cliInad":  96,
-        "cliAtr":  15,
-        "titInad":  187,
-        "titAtr":  22,
-        "casos90":  161
+        "value":  [
+                      {
+                          "data":  "2026-08-20",
+                          "inad31":  588504.97,
+                          "atraso":  105625.83,
+                          "cliInad":  96,
+                          "cliAtr":  15,
+                          "titInad":  187,
+                          "titAtr":  22,
+                          "casos90":  161
+                      },
+                      {
+                          "data":  "2026-08-21",
+                          "inad31":  44540.94,
+                          "atraso":  38401.28,
+                          "cliInad":  5,
+                          "cliAtr":  5,
+                          "titInad":  10,
+                          "titAtr":  6,
+                          "casos90":  7
+                      }
+                  ],
+        "Count":  2
     },
     {
-        "data":  "2026-08-21",
-        "inad31":  44540.94,
-        "atraso":  38401.28,
-        "cliInad":  5,
-        "cliAtr":  5,
-        "titInad":  10,
-        "titAtr":  6,
-        "casos90":  7
+        "data":  "2026-08-24",
+        "inad31":  598921.65,
+        "atraso":  151408.34,
+        "cliInad":  98,
+        "cliAtr":  22,
+        "titInad":  190,
+        "titAtr":  30,
+        "casos90":  160
     }
 ]
