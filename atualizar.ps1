@@ -10,6 +10,7 @@ $OMIE_CL     = "https://app.omie.com.br/api/v1/geral/clientes/"
 $OMIE_CP     = "https://app.omie.com.br/api/v1/financas/contapagar/"
 $META_VALOR  = 200000
 $META_INICIO = 1031143.11  # valor no inicio do tracking
+$MIN_DIAS_UTEIS = 3          # banco reconhece boleto em 2 dias uteis; abaixo disso nao e inadimplencia
 $HIST_FILE   = "$REPO\historico.json"
 $EMAIL_CFG   = "$REPO\email-config.json"
 $EMAIL_STAMP = "$REPO\email-sent.txt"
@@ -89,6 +90,23 @@ function Get-ContasMes($app_key, $app_secret, $mesAno) {
 function Get-DiasAtraso($dataVenc) {
     try { return [int]($HOJE - [datetime]::ParseExact($dataVenc,"dd/MM/yyyy",$null)).TotalDays }
     catch { return 0 }
+}
+
+function Get-DiasUteisAtraso($dataVenc) {
+    # Conta dias uteis (seg-sex) decorridos desde o vencimento ate hoje.
+    # O banco leva 2 dias uteis para reconhecer a baixa do boleto, portanto
+    # titulos com menos de $MIN_DIAS_UTEIS dias uteis nao sao inadimplencia real.
+    try {
+        $venc = [datetime]::ParseExact($dataVenc,"dd/MM/yyyy",$null).Date
+        if ($venc -ge $HOJE.Date) { return 0 }
+        $du = 0
+        $d  = $venc.AddDays(1)
+        while ($d -le $HOJE.Date) {
+            if ($d.DayOfWeek -ne [System.DayOfWeek]::Saturday -and $d.DayOfWeek -ne [System.DayOfWeek]::Sunday) { $du++ }
+            $d = $d.AddDays(1)
+        }
+        return $du
+    } catch { return 0 }
 }
 
 function Fmt-BRL($v) {
@@ -403,11 +421,20 @@ $todosClientes = @()  # para priorizacao
 foreach ($emp in $EMPRESAS) {
     Write-Host "[$(Get-Date -f 'HH:mm:ss')] $($emp.nome)..."
     $mapa        = Get-MapaClientes $emp.app_key $emp.app_secret
-    $contas      = Get-Contas $emp.app_key $emp.app_secret
+    $contasRaw   = Get-Contas $emp.app_key $emp.app_secret
     $crAbertas   = Get-ContasReceberAberto $emp.app_key $emp.app_secret
     $cpPendentes = Get-ContasPagar $emp.app_key $emp.app_secret
     $liquidados  = Get-ContasLiquidadas $emp.app_key $emp.app_secret
-    Write-Host "  CR atrasado: $($contas.Count) | CR a vencer: $($crAbertas.Count) | CP pendente: $($cpPendentes.Count) | Liquidados: $($liquidados.Count)"
+
+    # Separar: em processamento bancario (< MIN_DIAS_UTEIS dias uteis) vs inadimplencia real
+    $contas    = @(); $contasProc = @()
+    foreach ($__ct in $contasRaw) {
+        if ((Get-DiasUteisAtraso $__ct.data_vencimento) -ge $MIN_DIAS_UTEIS) { $contas += $__ct }
+        else { $contasProc += $__ct }
+    }
+    $valProc = 0.0; foreach ($__p in $contasProc) { $valProc += [double]$__p.valor_documento }
+
+    Write-Host "  CR atrasado: $($contas.Count) | Em processamento bancario: $($contasProc.Count) ($(Fmt-BRL $valProc)) | CR a vencer: $($crAbertas.Count) | CP pendente: $($cpPendentes.Count) | Liquidados: $($liquidados.Count)"
 
     $clMap = @{}
     $total=0.0; $f1=0.0; $f2=0.0; $f3=0.0; $f4=0.0
@@ -506,6 +533,7 @@ foreach ($emp in $EMPRESAS) {
         crTableHtml=$crTableHtml; cpTableHtml=$cpTableHtml
         crCount=($contas.Count + $crAbertas.Count); cpCount=$cpPendentes.Count
         movHtml=$movHtml; liquidados=$liquidados; contasAbertas=$contas; mapaClientes=$mapa
+        valProc=$valProc; cntProc=$contasProc.Count
     }
     Write-Host "  Inadimplente: $(Fmt-BRL $total) | A Receber: $(Fmt-BRL $totalAReceber) | A Pagar: $(Fmt-BRL $totalAPagar)"
 }
@@ -536,6 +564,10 @@ foreach ($__e in $dadosEmp) {
     $titulosInad31 += ($__e.cnt2 + $__e.cnt3 + $__e.cnt4)
     $clientesInad31 += $__e.ncli31
 }
+
+# Titulos vencidos mas dentro do prazo de reconhecimento bancario (nao inadimplencia)
+$totalProc = 0.0; $titulosProc = 0
+foreach ($__e in $dadosEmp) { $totalProc += $__e.valProc; $titulosProc += $__e.cntProc }
 $dataStr  = $HOJE.ToString("dd/MM/yyyy, HH:mm:ss")
 $dataCurta = $HOJE.ToString("dd/MM/yyyy")
 $mesNome  = (Get-Culture).DateTimeFormat.GetMonthName($HOJE.Month).Substring(0,3)
@@ -757,6 +789,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 .card.orange { border-top-color: #fb8c00; }
 .card.green { border-top-color: #43a047; }
 .card.orange-soft { border-top-color: #fb8c00; background: #fff8f0; }
+.card.blue-soft { border-top-color: #1e88e5; background: #f4f9ff; }
 .card-value { font-size: 26px; font-weight: 800; color: #1e3a5f; margin-bottom: 5px; line-height: 1.1; }
 .card.red .card-value { color: #c62828; }
 .card.orange .card-value { color: #e65100; }
@@ -765,6 +798,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 .card-value.red { color: #c62828; }
 .card-label { font-size: 12px; color: #888; font-weight: 500; }
 .section-label-atraso { font-size: 11px; font-weight: 700; color: #e65100; text-transform: uppercase; letter-spacing: 1.2px; margin: 18px 0 8px; padding: 6px 12px; background: #fff3e0; border-left: 3px solid #fb8c00; border-radius: 0 4px 4px 0; display: inline-block; }
+.section-label-proc { font-size: 11px; font-weight: 700; color: #1565c0; text-transform: uppercase; letter-spacing: 1.2px; margin: 18px 0 8px; padding: 6px 12px; background: #e3f2fd; border-left: 3px solid #1e88e5; border-radius: 0 4px 4px 0; display: inline-block; }
 .section-label-inad { font-size: 11px; font-weight: 700; color: #c62828; text-transform: uppercase; letter-spacing: 1.2px; margin: 18px 0 8px; padding: 6px 12px; background: #ffebee; border-left: 3px solid #e53935; border-radius: 0 4px 4px 0; display: inline-block; }
 .mov-panel { border: 1px solid #e0e4ea; border-radius: 8px; overflow: hidden; }
 .mov-panel > summary { cursor: pointer; padding: 14px 18px; font-size: 13px; font-weight: 700; color: #1e3a5f; background: #f5f7fa; user-select: none; list-style: none; display: flex; align-items: center; gap: 8px; }
@@ -1043,9 +1077,14 @@ function Gerar-TabEmpresa($emp, $empNome) {
     <h2>ICC $empNome</h2>
     <p>Relatorio de Inadimplencia &middot; Contas a Receber &middot; Contas a Pagar &mdash; $dataCurta</p>
   </div>
-  <div class="section-label-atraso" style="margin-top:0">&#x23F3; CONTAS A RECEBER EM ATRASO &mdash; 1 a 30 dias</div>
+  <div class="section-label-proc" style="margin-top:0">&#x1F3E6; EM PROCESSAMENTO BANCARIO &mdash; menos de $MIN_DIAS_UTEIS dias uteis</div>
   <div class="cards-grid" style="margin-bottom:20px">
-    <div class="card orange-soft"><div class="card-value" style="color:#e65100">$(Fmt-BRL $emp.f1)</div><div class="card-label">Total em Atraso (1-30 dias)</div></div>
+    <div class="card blue-soft"><div class="card-value" style="color:#1565c0">$(Fmt-BRL $emp.valProc)</div><div class="card-label">Aguardando Baixa do Banco</div></div>
+    <div class="card blue-soft"><div class="card-value" style="color:#1565c0">$($emp.cntProc)</div><div class="card-label">Titulos em Processamento</div></div>
+  </div>
+  <div class="section-label-atraso">&#x23F3; CONTAS A RECEBER EM ATRASO &mdash; $MIN_DIAS_UTEIS dias uteis a 30 dias</div>
+  <div class="cards-grid" style="margin-bottom:20px">
+    <div class="card orange-soft"><div class="card-value" style="color:#e65100">$(Fmt-BRL $emp.f1)</div><div class="card-label">Total em Atraso (ate 30 dias)</div></div>
     <div class="card orange-soft"><div class="card-value" style="color:#e65100">$($emp.ncli1)</div><div class="card-label">Clientes em Atraso</div></div>
     <div class="card orange-soft"><div class="card-value" style="color:#e65100">$($emp.cnt1)</div><div class="card-label">Titulos em Atraso</div></div>
   </div>
@@ -1480,11 +1519,27 @@ $CSS
       <h2>Resumo Executivo Consolidado &mdash; ICC Grupo</h2>
       <p>Visao Gerencial de Inadimplencia &mdash; $dataCurta</p>
     </div>
-    <div class="section-label-atraso">&#x23F3; CONTAS A RECEBER EM ATRASO &mdash; 1 a 30 dias</div>
+    <div class="section-label-proc">&#x1F3E6; EM PROCESSAMENTO BANCARIO &mdash; menos de $MIN_DIAS_UTEIS dias uteis vencidos</div>
+    <div class="cards-grid" style="margin-bottom:20px">
+      <div class="card blue-soft">
+        <div class="card-value" style="color:#1565c0">$(Fmt-BRL $totalProc)</div>
+        <div class="card-label">Aguardando Baixa do Banco</div>
+      </div>
+      <div class="card blue-soft">
+        <div class="card-value" style="color:#1565c0">$titulosProc</div>
+        <div class="card-label">Titulos em Processamento</div>
+      </div>
+      <div class="card blue-soft">
+        <div class="card-value" style="color:#1565c0;font-size:14px;line-height:1.4;padding-top:6px">Nao contabilizado<br>como inadimplencia</div>
+        <div class="card-label">Banco leva 2 dias uteis</div>
+      </div>
+    </div>
+
+    <div class="section-label-atraso">&#x23F3; CONTAS A RECEBER EM ATRASO &mdash; $MIN_DIAS_UTEIS dias uteis a 30 dias</div>
     <div class="cards-grid" style="margin-bottom:20px">
       <div class="card orange-soft">
         <div class="card-value" style="color:#e65100">$(Fmt-BRL $totalAtraso)</div>
-        <div class="card-label">Total em Atraso (1-30 dias)</div>
+        <div class="card-label">Total em Atraso (ate 30 dias)</div>
       </div>
       <div class="card orange-soft">
         <div class="card-value" style="color:#e65100">$clientesAtraso</div>
