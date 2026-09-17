@@ -109,6 +109,15 @@ function Get-DiasUteisAtraso($dataVenc) {
     } catch { return 0 }
 }
 
+function Get-NotaFiscal($c) {
+    # Numero da NF-e; se vazio, cai para o numero do documento (RPS etc.)
+    $nf = "$($c.numero_documento_fiscal)".Trim()
+    if ($nf -and $nf -ne "0") { return $nf }
+    $doc = "$($c.numero_documento)".Trim()
+    if ($doc) { return $doc }
+    return "&mdash;"
+}
+
 function Fmt-BRL($v) {
     $ptBR = [System.Globalization.CultureInfo]::GetCultureInfo("pt-BR")
     return "R$ " + ([double]$v).ToString("N2", $ptBR)
@@ -312,7 +321,7 @@ function Build-MovTable($abertos, $liquidados, $mapa) {
     if ($abSorted.Count -eq 0) {
         $html += "<p style='color:#aaa;padding:12px;font-style:italic'>Nenhum titulo em aberto.</p>"
     } else {
-        $html += "<table class='mov-table'><thead><tr><th>Cliente</th><th>Vencimento</th><th>Atraso</th><th style='text-align:right'>Valor</th></tr></thead><tbody>"
+        $html += "<table class='mov-table'><thead><tr><th>Cliente</th><th>Vencimento</th><th>Atraso</th><th style='text-align:center'>NF</th><th style='text-align:right'>Valor</th></tr></thead><tbody>"
         foreach ($c in $abSorted) {
             $cod  = [string]$c.codigo_cliente_fornecedor
             $nome = if ($mapa.ContainsKey($cod)) { $mapa[$cod] } else { "Cod $cod" }
@@ -321,6 +330,7 @@ function Build-MovTable($abertos, $liquidados, $mapa) {
             $val  = [double]$c.valor_documento
             $html += "<tr><td>$(Esc-Html $nome)</td><td style='text-align:center'>$($c.data_vencimento)</td>"
             $html += "<td style='text-align:center'><span class='badge $acls'>$dias dias</span></td>"
+            $html += "<td style='text-align:center;font-weight:600;color:#555'>$(Get-NotaFiscal $c)</td>"
             $html += "<td style='text-align:right;font-weight:700;color:#1e3a5f'>R$ $($val.ToString('N2',$ptBR))</td></tr>"
         }
         $html += "</tbody></table>"
@@ -348,12 +358,13 @@ function Build-MovTable($abertos, $liquidados, $mapa) {
             $items    = $grupos[$data]
             $subTotal = [double]($items | Measure-Object { [double]$_.valor_documento } -Sum).Sum
             $html += "<div class='mov-data-grupo'>&#x1F4C5; $data &nbsp;&middot;&nbsp; R$ $($subTotal.ToString('N2',$ptBR))</div>"
-            $html += "<table class='mov-table'><thead><tr><th>Cliente</th><th>Vencimento</th><th style='text-align:right'>Valor</th></tr></thead><tbody>"
+            $html += "<table class='mov-table'><thead><tr><th>Cliente</th><th>Vencimento</th><th style='text-align:center'>NF</th><th style='text-align:right'>Valor</th></tr></thead><tbody>"
             foreach ($c in ($items | Sort-Object { [double]$_.valor_documento } -Descending)) {
                 $cod  = [string]$c.codigo_cliente_fornecedor
                 $nome = if ($mapa.ContainsKey($cod)) { $mapa[$cod] } else { "Cod $cod" }
                 $val  = [double]$c.valor_documento
                 $html += "<tr><td>$(Esc-Html $nome)</td><td style='text-align:center'>$($c.data_vencimento)</td>"
+                $html += "<td style='text-align:center;font-weight:600;color:#555'>$(Get-NotaFiscal $c)</td>"
                 $html += "<td style='text-align:right;font-weight:700;color:#2e7d32'>R$ $($val.ToString('N2',$ptBR))</td></tr>"
             }
             $html += "</tbody></table>"
@@ -367,7 +378,7 @@ function Build-CRTable($rows, $mapaClientes) {
     if (-not $rows -or $rows.Count -eq 0) { return "<p style='color:#aaa;font-style:italic;padding:12px'>Nenhum titulo pendente.</p>" }
     $sorted = @($rows | Sort-Object { [double]$_.valor_documento } -Descending | Select-Object -First 200)
     $html = "<table style='width:100%;border-collapse:collapse;font-size:12.5px'>"
-    $html += "<thead><tr style='background:#f5f7fa'><th style='padding:9px 12px;text-align:left;border-bottom:2px solid #e0e4ea'>Cliente</th><th style='padding:9px 12px;text-align:center;border-bottom:2px solid #e0e4ea'>Situacao</th><th style='padding:9px 12px;text-align:center;border-bottom:2px solid #e0e4ea'>Vencimento</th><th style='padding:9px 12px;text-align:center;border-bottom:2px solid #e0e4ea'>Previsao Pgto</th><th style='padding:9px 12px;text-align:center;border-bottom:2px solid #e0e4ea'>Ult. Recebimento</th><th style='padding:9px 12px;text-align:right;border-bottom:2px solid #e0e4ea'>Valor</th></tr></thead><tbody>"
+    $html += "<thead><tr style='background:#f5f7fa'><th style='padding:9px 12px;text-align:left;border-bottom:2px solid #e0e4ea'>Cliente</th><th style='padding:9px 12px;text-align:center;border-bottom:2px solid #e0e4ea'>Situacao</th><th style='padding:9px 12px;text-align:center;border-bottom:2px solid #e0e4ea'>Vencimento</th><th style='padding:9px 12px;text-align:center;border-bottom:2px solid #e0e4ea'>Previsao Pgto</th><th style='padding:9px 12px;text-align:center;border-bottom:2px solid #e0e4ea'>Ult. Recebimento</th><th style='padding:9px 12px;text-align:center;border-bottom:2px solid #e0e4ea'>NF</th><th style='padding:9px 12px;text-align:right;border-bottom:2px solid #e0e4ea'>Valor</th></tr></thead><tbody>"
     foreach ($c in $sorted) {
         $cod  = [string]$c.codigo_cliente_fornecedor
         $nome = if ($mapaClientes.ContainsKey($cod)) { $mapaClientes[$cod] } else { "Cod $cod" }
@@ -380,6 +391,7 @@ function Build-CRTable($rows, $mapaClientes) {
         $html += "<td style='padding:9px 12px;text-align:center'>$($c.data_vencimento)</td>"
         $html += "<td style='padding:9px 12px;text-align:center'>$prev</td>"
         $html += "<td style='padding:9px 12px;text-align:center'>$rec</td>"
+        $html += "<td style='padding:9px 12px;text-align:center;font-weight:600;color:#555'>$(Get-NotaFiscal $c)</td>"
         $html += "<td style='padding:9px 12px;text-align:right;font-weight:700;color:#1e3a5f'>$(Fmt-BRL ([double]$c.valor_documento))</td>"
         $html += "</tr>"
     }
@@ -391,7 +403,7 @@ function Build-CPTable($rows, $mapaClientes) {
     if (-not $rows -or $rows.Count -eq 0) { return "<p style='color:#aaa;font-style:italic;padding:12px'>Nenhum titulo pendente.</p>" }
     $sorted = @($rows | Sort-Object { [double]$_.valor_documento } -Descending | Select-Object -First 200)
     $html = "<table style='width:100%;border-collapse:collapse;font-size:12.5px'>"
-    $html += "<thead><tr style='background:#f5f7fa'><th style='padding:9px 12px;text-align:left;border-bottom:2px solid #e0e4ea'>Fornecedor</th><th style='padding:9px 12px;text-align:center;border-bottom:2px solid #e0e4ea'>Situacao</th><th style='padding:9px 12px;text-align:center;border-bottom:2px solid #e0e4ea'>Vencimento</th><th style='padding:9px 12px;text-align:center;border-bottom:2px solid #e0e4ea'>Previsao Pgto</th><th style='padding:9px 12px;text-align:center;border-bottom:2px solid #e0e4ea'>Ult. Pagamento</th><th style='padding:9px 12px;text-align:right;border-bottom:2px solid #e0e4ea'>Valor</th></tr></thead><tbody>"
+    $html += "<thead><tr style='background:#f5f7fa'><th style='padding:9px 12px;text-align:left;border-bottom:2px solid #e0e4ea'>Fornecedor</th><th style='padding:9px 12px;text-align:center;border-bottom:2px solid #e0e4ea'>Situacao</th><th style='padding:9px 12px;text-align:center;border-bottom:2px solid #e0e4ea'>Vencimento</th><th style='padding:9px 12px;text-align:center;border-bottom:2px solid #e0e4ea'>Previsao Pgto</th><th style='padding:9px 12px;text-align:center;border-bottom:2px solid #e0e4ea'>Ult. Pagamento</th><th style='padding:9px 12px;text-align:center;border-bottom:2px solid #e0e4ea'>NF</th><th style='padding:9px 12px;text-align:right;border-bottom:2px solid #e0e4ea'>Valor</th></tr></thead><tbody>"
     foreach ($c in $sorted) {
         $cod  = [string]$c.codigo_cliente_fornecedor
         $nome = if ($mapaClientes.ContainsKey($cod)) { $mapaClientes[$cod] } else { "Cod $cod" }
@@ -404,6 +416,7 @@ function Build-CPTable($rows, $mapaClientes) {
         $html += "<td style='padding:9px 12px;text-align:center'>$($c.data_vencimento)</td>"
         $html += "<td style='padding:9px 12px;text-align:center'>$prev</td>"
         $html += "<td style='padding:9px 12px;text-align:center'>$pag</td>"
+        $html += "<td style='padding:9px 12px;text-align:center;font-weight:600;color:#555'>$(Get-NotaFiscal $c)</td>"
         $html += "<td style='padding:9px 12px;text-align:right;font-weight:700;color:#c62828'>$(Fmt-BRL ([double]$c.valor_documento))</td>"
         $html += "</tr>"
         }
@@ -1424,7 +1437,7 @@ $baixasHtml = ""
 if ($_baixasSorted.Count -eq 0) {
     $baixasHtml = "<p class='baixas-empty'>Nenhuma baixa registrada nos ultimos 60 dias.</p>"
 } else {
-    $baixasHtml = "<table class='baixas-table'><thead><tr><th>Data Pgto</th><th>Empresa</th><th>Cliente</th><th>Vencimento</th><th style='text-align:right'>Valor</th></tr></thead><tbody>"
+    $baixasHtml = "<table class='baixas-table'><thead><tr><th>Data Pgto</th><th>Empresa</th><th>Cliente</th><th>Vencimento</th><th style='text-align:center'>NF</th><th style='text-align:right'>Valor</th></tr></thead><tbody>"
     foreach ($c in $_baixasSorted) {
         $cod   = [string]$c.codigo_cliente_fornecedor
         $nome  = if ($_mapaGeral.ContainsKey($cod)) { $_mapaGeral[$cod] } else { "Cod $cod" }
@@ -1439,6 +1452,7 @@ if ($_baixasSorted.Count -eq 0) {
         $baixasHtml += "<td style='font-size:11px;color:#666'>$empNome</td>"
         $baixasHtml += "<td>$(Esc-Html $nome)</td>"
         $baixasHtml += "<td style='text-align:center;color:#999;font-size:11px'>$($c.data_vencimento)</td>"
+        $baixasHtml += "<td style='text-align:center;font-weight:600;color:#555'>$(Get-NotaFiscal $c)</td>"
         $baixasHtml += "<td style='text-align:right;font-weight:700;color:#2e7d32'>R`$ $($val.ToString('N2',$ptBR2))</td>"
         $baixasHtml += "</tr>"
     }
