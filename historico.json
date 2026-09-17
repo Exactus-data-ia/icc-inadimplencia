@@ -1,10 +1,10 @@
 ﻿{
     "data":  "2026-09-17",
-    "inad31":  490704.36,
+    "inad31":  490494.14,
     "atraso":  78252.34,
-    "cliInad":  94,
+    "cliInad":  90,
     "cliAtr":  9,
-    "titInad":  169,
+    "titInad":  164,
     "titAtr":  22,
-    "casos90":  146
+    "casos90":  143
 }
