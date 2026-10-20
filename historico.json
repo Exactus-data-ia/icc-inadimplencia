@@ -1,10 +1,22 @@
-﻿{
-    "data":  "2026-10-19",
-    "inad31":  522627.13,
-    "atraso":  237452.02,
-    "cliInad":  90,
-    "cliAtr":  16,
-    "titInad":  173,
-    "titAtr":  33,
-    "casos90":  146
-}
+﻿[
+    {
+        "data":  "2026-10-19",
+        "inad31":  522627.13,
+        "atraso":  237452.02,
+        "cliInad":  90,
+        "cliAtr":  16,
+        "titInad":  173,
+        "titAtr":  33,
+        "casos90":  146
+    },
+    {
+        "data":  "2026-10-20",
+        "inad31":  522627.13,
+        "atraso":  265416.92,
+        "cliInad":  90,
+        "cliAtr":  18,
+        "titInad":  173,
+        "titAtr":  41,
+        "casos90":  146
+    }
+]
