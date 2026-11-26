@@ -1,13 +1,28 @@
 ﻿[
     {
-        "data":  "2026-11-25",
-        "inad31":  0,
-        "atraso":  0,
-        "cliInad":  0,
-        "cliAtr":  0,
-        "titInad":  0,
-        "titAtr":  0,
-        "casos90":  0
+        "value":  [
+                      {
+                          "data":  "2026-11-25",
+                          "inad31":  0,
+                          "atraso":  0,
+                          "cliInad":  0,
+                          "cliAtr":  0,
+                          "titInad":  0,
+                          "titAtr":  0,
+                          "casos90":  0
+                      },
+                      {
+                          "data":  "2026-11-26",
+                          "inad31":  0,
+                          "atraso":  0,
+                          "cliInad":  0,
+                          "cliAtr":  0,
+                          "titInad":  0,
+                          "titAtr":  0,
+                          "casos90":  0
+                      }
+                  ],
+        "Count":  2
     },
     {
         "data":  "2026-11-26",
