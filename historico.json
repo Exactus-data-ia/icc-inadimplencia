@@ -1,10 +1,22 @@
-﻿{
-    "data":  "2026-11-26",
-    "inad31":  0,
-    "atraso":  0,
-    "cliInad":  0,
-    "cliAtr":  0,
-    "titInad":  0,
-    "titAtr":  0,
-    "casos90":  0
-}
+﻿[
+    {
+        "data":  "2026-11-26",
+        "inad31":  0,
+        "atraso":  0,
+        "cliInad":  0,
+        "cliAtr":  0,
+        "titInad":  0,
+        "titAtr":  0,
+        "casos90":  0
+    },
+    {
+        "data":  "2026-11-27",
+        "inad31":  0,
+        "atraso":  0,
+        "cliInad":  0,
+        "cliAtr":  0,
+        "titInad":  0,
+        "titAtr":  0,
+        "casos90":  0
+    }
+]
